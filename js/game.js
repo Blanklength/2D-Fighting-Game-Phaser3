@@ -20,7 +20,6 @@ var config = {
     scene: [
         TitleScreen
     ]
-
     
 };  
 
