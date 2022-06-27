@@ -18,7 +18,9 @@ var config = {
     },
 
     scene: [
-        TitleScreen
+        TitleScreen,
+        SettingsScene,
+        FightScene
     ]
     
 };  
