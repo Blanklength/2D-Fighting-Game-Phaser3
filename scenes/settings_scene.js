@@ -1,15 +1,11 @@
-class SettingsScene extends Phaser.Scene{
-    constructor(){
-        super("SettingsScene");
-    }
-    
-    preload(){
-    }
+class SettingsScene extends Phaser.Scene {
+  constructor() {
+    super("SettingsScene");
+  }
 
-    create(){       
-    }
+  preload() {}
 
-    update(){
+  create() {}
 
-    }
+  update() {}
 }

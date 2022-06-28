@@ -27,22 +27,16 @@ class TitleScreen extends Phaser.Scene {
   up_cursor() {
     let { width, height } = this.sys.game.canvas;
     if (this.cursor > 0) this.cursor--;
-    if (this.cursor == 0){
-      this.my_marker.setPosition(
-        width / 2 - 5,
-        height / 2 + 10
-      )
+    if (this.cursor == 0) {
+      this.my_marker.setPosition(width / 2 - 5, height / 2 + 10);
     }
   }
 
   down_cursor() {
     let { width, height } = this.sys.game.canvas;
     if (this.cursor < 1) this.cursor++;
-    if (this.cursor == 1){
-      this.my_marker.setPosition(
-        width / 2 - 5,
-        height / 2 + 90
-      )
+    if (this.cursor == 1) {
+      this.my_marker.setPosition(width / 2 - 5, height / 2 + 90);
     }
   }
 
@@ -68,18 +62,18 @@ class TitleScreen extends Phaser.Scene {
       this.down_cursor();
     }
 
-    if (keyobj_enter.isDown){
+    // changing scenes here
+    if (keyobj_enter.isDown) {
       // 0 is for game Scene
-      if(this.cursor == 0){
-        this.scene.start("FightScene")
+      if (this.cursor == 0) {
+        this.scene.start("FightScene");
       }
       // 1 is for Settingscene
-      if(this.cursor == 1){
-        this.scene.start("SettingsScene")
+      if (this.cursor == 1) {
+        this.scene.start("SettingsScene");
       }
 
       // implemen Multiplayer Scene
-
     }
   }
 }
