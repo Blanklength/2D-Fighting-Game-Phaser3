@@ -66,7 +66,7 @@ class TitleScreen extends Phaser.Scene {
     if (keyobj_enter.isDown) {
       // 0 is for game Scene
       if (this.cursor == 0) {
-        this.scene.start("FightScene");
+        this.scene.start("PreloadFightScene");
       }
       // 1 is for Settingscene
       if (this.cursor == 1) {
