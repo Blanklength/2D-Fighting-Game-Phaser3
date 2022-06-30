@@ -15,6 +15,11 @@ class Player2 extends Phaser.GameObjects.Sprite {
     this.setTexture("idle0Blue");
     this.play("idleBlue");
 
+
+
+    this.hp = 50;
+
+
     // player Config
     this.body.setBounce(0.2);
     this.body.setSize(300, 300, true);
@@ -83,8 +88,8 @@ class Player2 extends Phaser.GameObjects.Sprite {
   }
 
   update() {
-
     // going right
+    this.flipX = true;
     if (this.keyobj_d.isDown) {
       if (
         !this.checkIfAnimationIsPlaying("punchrightBlue") &&
@@ -92,7 +97,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
         !this.checkIfAnimationIsPlaying("uppercutBlue")
       ) {
         this.body.setVelocityX(60);
-        //this.anims.play("walkBlue", true);
+        this.anims.play("walkbackBlue", true);
       }
     }
     // going left
@@ -103,7 +108,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
         !this.checkIfAnimationIsPlaying("uppercutBlue")
       ) {
         this.body.setVelocityX(-60);
-        this.anims.play("walkbackBlue", true);
+        this.anims.play("walkBlue", true);
       }
     }
     //idle
@@ -117,7 +122,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
         this.anims.play("idleBlue", true);
       }
     }
-    
+
     if (Phaser.Input.Keyboard.JustDown(this.keyobj_c)) {
       this.attackanimation("punchrightBlue");
     } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_v)) {
@@ -135,6 +140,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
 
   attackanimation(attackType) {
     this.body.setVelocityX(0);
+
 
     this.hitbox = this.scene.add
       .sprite(this.x, this.y - this.body.height / 2)

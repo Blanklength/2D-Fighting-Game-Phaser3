@@ -15,11 +15,14 @@ class Player extends Phaser.GameObjects.Sprite {
     this.setTexture("idle0");
     this.play("idle");
 
+    this.hp = 50;
+
     // player Config
     this.body.setBounce(0.2);
     this.body.setSize(300, 300, true);
     this.body.setGravityY(100);
     this.body.setCollideWorldBounds(true);
+
 
     //Methoden Aufrufe für Erstellung
     this.init();
