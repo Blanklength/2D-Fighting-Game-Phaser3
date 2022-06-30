@@ -10,8 +10,7 @@ class PreloadFightScene extends Phaser.Scene {
     // moves for playere 1
 
     this.preloadRed();
-
-    //this.preloadBlue();
+    this.preloadBlue();
 
   }
 
@@ -211,12 +210,211 @@ class PreloadFightScene extends Phaser.Scene {
       );
   }
 
+  preloadBlue(){
+
+    this.load.image(
+        "idle0Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_000.png"
+      );
+      this.load.image(
+        "idle1Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_001.png"
+      );
+      this.load.image(
+        "idle2Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_002.png"
+      );
+      this.load.image(
+        "idle3Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_003.png"
+      );
+      this.load.image(
+        "idle4Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_004.png"
+      );
+      this.load.image(
+        "idle5Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_005.png"
+      );
+      this.load.image(
+        "idle6Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_006.png"
+      );
+      this.load.image(
+        "idle7Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_007.png"
+      );
+      this.load.image(
+        "idle8Blue",
+        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_008.png"
+      );
+  
+      // walk images
+      this.load.image(
+        "walk0Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_000.png"
+      );
+      this.load.image(
+        "walk1Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_001.png"
+      );
+      this.load.image(
+        "walk2Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_002.png"
+      );
+      this.load.image(
+        "walk3Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_003.png"
+      );
+      this.load.image(
+        "walk4Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_004.png"
+      );
+      this.load.image(
+        "walk5Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_005.png"
+      );
+      this.load.image(
+        "walk6Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_006.png"
+      );
+      this.load.image(
+        "walk7Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_007.png"
+      );
+      this.load.image(
+        "walk8Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_008.png"
+      );
+      this.load.image(
+        "walk9Blue",
+        "assets\MiniBoxingBLUE\BLUE\Walk\__Boxing04_Walk_009.png"
+      );
+  
+      // walk back animation
+      this.load.image(
+        "walkbackBlue0",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_000.png"
+      );
+      this.load.image(
+        "walkbackBlue1",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_001.png"
+      );
+      this.load.image(
+        "walkbackBlue2",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_002.png"
+      );
+      this.load.image(
+        "walkbackBlue3",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_003.png"
+      );
+      this.load.image(
+        "walkbackBlue4",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_004.png"
+      );
+      this.load.image(
+        "walkbackBlue5",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_005.png"
+      );
+      this.load.image(
+        "walkbackBlue6",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_006.png"
+      );
+      this.load.image(
+        "walkbackBlue7",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_007.png"
+      );
+      this.load.image(
+        "walkbackBlue8",
+        "assets\MiniBoxingBLUE\BLUE\WalkBack\__Boxing04_WalkBack_008.png"
+      );
+  
+      // punch right images
+      this.load.image(
+        "punchBlueR0",
+        "assets\MiniBoxingBLUE\BLUE\PunchRight\__Boxing04_PunchRight_000.png"
+      );
+      this.load.image(
+        "punchBlueR1",
+        "assets\MiniBoxingBLUE\BLUE\PunchRight\__Boxing04_PunchRight_001.png"
+      );
+      this.load.image(
+        "punchBlueR2",
+        "assets\MiniBoxingBLUE\BLUE\PunchRight\__Boxing04_PunchRight_002.png"
+      );
+      this.load.image(
+        "punchBlueR3",
+        "assets\MiniBoxingBLUE\BLUE\PunchRight\__Boxing04_PunchRight_003.png"
+      );
+      this.load.image(
+        "punchBlueR4",
+        "assets\MiniBoxingBLUE\BLUE\PunchRight\__Boxing04_PunchRight_004.png"
+      );
+  
+      // uppercut images
+      this.load.image(
+        "uppercutBlue0",
+        "assets\MiniBoxingBLUE\BLUE\PunchUp\__Boxing04_PunchUp_000.png"
+      );
+      this.load.image(
+        "uppercutBlue1",
+        "assets\MiniBoxingBLUE\BLUE\PunchUp\__Boxing04_PunchUp_001.png"
+      );
+      this.load.image(
+        "uppercutBlue2",
+        "assets\MiniBoxingBLUE\BLUE\PunchUp\__Boxing04_PunchUp_002.png"
+      );
+      this.load.image(
+        "uppercutBlue3",
+        "assets\MiniBoxingBLUE\BLUE\PunchUp\__Boxing04_PunchUp_003.png"
+      );
+      this.load.image(
+        "uppercutBlue4",
+        "assets\MiniBoxingBLUE\BLUE\PunchUp\__Boxing04_PunchUp_004.png"
+      );
+      this.load.image(
+        "uppercutBlue5",
+        "assets\MiniBoxingBLUE\BLUE\PunchUp\__Boxing04_PunchUp_005.png"
+      );
+  
+      // punch left images
+  
+      this.load.image(
+        "punchLBlue0",
+        "assets\MiniBoxingBLUE\BLUE\PunchLeft\__Boxing04_PunchLeft_000.png"
+      );
+      this.load.image(
+        "punchLBlue1",
+        "assets\MiniBoxingBLUE\BLUE\PunchLeft\__Boxing04_PunchLeft_001.png"
+      );
+      this.load.image(
+        "punchLBlue2",
+        "assets\MiniBoxingBLUE\BLUE\PunchLeft\__Boxing04_PunchLeft_002.png"
+      );
+      this.load.image(
+        "punchLBlue3",
+        "assets\MiniBoxingBLUE\BLUE\PunchLeft\__Boxing04_PunchLeft_003.png"
+      );
+      this.load.image(
+        "punchLBlue4",
+        "assets\MiniBoxingBLUE\BLUE\PunchLeft\__Boxing04_PunchLeft_004.png"
+      );
+      this.load.image(
+        "punchLBlue5",
+        "assets\MiniBoxingBLUE\BLUE\PunchLeft\__Boxing04_PunchLeft_005.png"
+      );
+
+
+  }
+
+
   create() {
-    this.createAnims();
+    this.createAnimsRed();
+    this.createAnimsBlue();
     this.scene.start("FightScene");
   }
 
-  createAnims() {
+  createAnimsRed() {
     this.anims.create({
       key: "idle",
       frames: [
@@ -289,7 +487,7 @@ class PreloadFightScene extends Phaser.Scene {
         { key: "punchL2" },
         { key: "punchL3" },
         { key: "punchL4" },
-        { key: "punchL4" },
+        { key: "punchL5" },
       ],
       frameRate: 15,
     });
@@ -307,202 +505,100 @@ class PreloadFightScene extends Phaser.Scene {
       frameRate: 15,
     });
   }
-preloadBlue(){
 
-    this.load.image(
-        "idle0Blue",
-        "assets/MiniBoxingBLUE/BLUE/Idle/__Boxing04_Idle_000.png"
-      );
-      this.load.image(
-        "idle1Blue",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_001.png"
-      );
-      this.load.image(
-        "idle2Blue",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_002.png"
-      );
-      this.load.image(
-        "idle3",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_003.png"
-      );
-      this.load.image(
-        "idle4",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_004.png"
-      );
-      this.load.image(
-        "idle5",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_005.png"
-      );
-      this.load.image(
-        "idle6",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_006.png"
-      );
-      this.load.image(
-        "idle7",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_007.png"
-      );
-      this.load.image(
-        "idle8",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_008.png"
-      );
-  
-      // walk images
-      this.load.image(
-        "walk0",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_000.png"
-      );
-      this.load.image(
-        "walk1",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_001.png"
-      );
-      this.load.image(
-        "walk2",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_002.png"
-      );
-      this.load.image(
-        "walk3",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_003.png"
-      );
-      this.load.image(
-        "walk4",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_004.png"
-      );
-      this.load.image(
-        "walk5",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_005.png"
-      );
-      this.load.image(
-        "walk6",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_006.png"
-      );
-      this.load.image(
-        "walk7",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_007.png"
-      );
-      this.load.image(
-        "walk8",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_008.png"
-      );
-      this.load.image(
-        "walk9",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/Walk/__Boxing04_Walk_009.png"
-      );
-  
-      // walk back animation
-      this.load.image(
-        "walkback0",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_000.png"
-      );
-      this.load.image(
-        "walkback1",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_001.png"
-      );
-      this.load.image(
-        "walkback2",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_002.png"
-      );
-      this.load.image(
-        "walkback3",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_003.png"
-      );
-      this.load.image(
-        "walkback4",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_004.png"
-      );
-      this.load.image(
-        "walkback5",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_005.png"
-      );
-      this.load.image(
-        "walkback6",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_006.png"
-      );
-      this.load.image(
-        "walkback7",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_007.png"
-      );
-      this.load.image(
-        "walkback8",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/WalkBack/__Boxing04_WalkBack_008.png"
-      );
-  
-      // punch right images
-      this.load.image(
-        "punchR0",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchRight/__Boxing04_PunchRight_000.png"
-      );
-      this.load.image(
-        "punchR1",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchRight/__Boxing04_PunchRight_001.png"
-      );
-      this.load.image(
-        "punchR2",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchRight/__Boxing04_PunchRight_002.png"
-      );
-      this.load.image(
-        "punchR3",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchRight/__Boxing04_PunchRight_003.png"
-      );
-      this.load.image(
-        "punchR4",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchRight/__Boxing04_PunchRight_004.png"
-      );
-  
-      // uppercut images
-      this.load.image(
-        "uppercut0",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchUp/__Boxing04_PunchUp_000.png"
-      );
-      this.load.image(
-        "uppercut1",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchUp/__Boxing04_PunchUp_001.png"
-      );
-      this.load.image(
-        "uppercut2",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchUp/__Boxing04_PunchUp_002.png"
-      );
-      this.load.image(
-        "uppercut3",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchUp/__Boxing04_PunchUp_003.png"
-      );
-      this.load.image(
-        "uppercut4",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchUp/__Boxing04_PunchUp_004.png"
-      );
-      this.load.image(
-        "uppercut5",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchUp/__Boxing04_PunchUp_005.png"
-      );
-  
-      // punch left images
-  
-      this.load.image(
-        "punchL0",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchLeft/__Boxing04_PunchLeft_000.png"
-      );
-      this.load.image(
-        "punchL1",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchLeft/__Boxing04_PunchLeft_001.png"
-      );
-      this.load.image(
-        "punchL2",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchLeft/__Boxing04_PunchLeft_002.png"
-      );
-      this.load.image(
-        "punchL3",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchLeft/__Boxing04_PunchLeft_003.png"
-      );
-      this.load.image(
-        "punchL4",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchLeft/__Boxing04_PunchLeft_004.png"
-      );
-      this.load.image(
-        "punchL5",
-        "assets/MiniBoxing/MiniBoxingSpriteLite/PunchLeft/__Boxing04_PunchLeft_005.png"
-      );
+  createAnimsBlue(){
+    this.anims.create({
+      key: "idleBlue",
+      frames: [
+        { key: "idle0Blue" },
+        { key: "idle1Blue" },
+        { key: "idle2Blue" },
+        { key: "idle3Blue" },
+        { key: "idle4Blue" },
+        { key: "idle5Blue" },
+        { key: "idle6Blue" },
+        { key: "idle7Blue" },
+        { key: "idle8Blue", duration: 50 },
+      ],
+      frameRate: 8,
+      repeat: -1,
+    });
 
+    this.anims.create({
+      key: "walkBlue",
+      frames: [
+        { key: "walk0Blue" },
+        { key: "walk1Blue" },
+        { key: "walk2Blue" },
+        { key: "walk3Blue" },
+        { key: "walk4Blue" },
+        { key: "walk5Blue" },
+        { key: "walk6Blue" },
+        { key: "walk7Blue" },
+        { key: "walk8Blue" },
+        { key: "walk9Blue" },
+      ],
+      frameRate: 15,
+      repeat: -1,
+    });
 
-}
+    this.anims.create({
+      key: "walkbackBlue",
+      frames: [
+        { key: "walkbackBlue0" },
+        { key: "walkbackBlue1" },
+        { key: "walkbackBlue2" },
+        { key: "walkbackBlue3" },
+        { key: "walkbackBlue4" },
+        { key: "walkbackBlue5" },
+        { key: "walkbackBlue6" },
+        { key: "walkbackBlue7" },
+        { key: "walkbackBlue8" },
+      ],
+      frameRate: 15,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "punchrightBlue",
+      frames: [
+        { key: "punchBlueR0" },
+        { key: "punchBlueR1" },
+        { key: "punchBlueR2" },
+        { key: "punchBlueR3" },
+        { key: "punchBlueR4" },
+      ],
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: "punchleftBlue",
+      frames: [
+        { key: "punchLBlue0" },
+        { key: "punchLBlue1" },
+        { key: "punchLBlue2" },
+        { key: "punchLBlue3" },
+        { key: "punchLBlue4" },
+        { key: "punchLBlue5" },
+      ],
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: "uppercutBlue",
+      frames: [
+        { key: "uppercutBlue0" },
+        { key: "uppercutBlue1" },
+        { key: "uppercutBlue2" },
+        { key: "uppercutBlue3" },
+        { key: "uppercutBlue4" },
+        { key: "uppercutBlue5" },
+      ],
+      frameRate: 15,
+    });
+
+  }
+
 
   
 }

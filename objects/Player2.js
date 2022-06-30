@@ -3,7 +3,7 @@
 //Globale Variablen
 //const example = 2;
 
-class Playe2 extends Phaser.GameObjects.Sprite {
+class Player2 extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, color) {
     super(scene, x, y, color);
 
@@ -12,8 +12,8 @@ class Playe2 extends Phaser.GameObjects.Sprite {
 
     this.setPosition(x, y);
 
-    this.setTexture("idle0");
-    this.play("idle");
+    this.setTexture("idle0Blue");
+    this.play("idleBlue");
 
     // player Config
     this.body.setBounce(0.2);
@@ -53,70 +53,79 @@ class Playe2 extends Phaser.GameObjects.Sprite {
     // Look in this function, after one animation is completed
     this.on("animationcomplete", (event) => {
       if (
-        event.key == "punchright" ||
-        event.key == "punchleft" ||
-        event.key == "uppercut"
+        event.key == "punchrightBlue" ||
+        event.key == "punchleftBlue" ||
+        event.key == "uppercutBlue"
       )
-        this.anims.play("idle", true);
+        this.anims.play("idleBlue", true);
     });
 
     // key objects
-    this.keyobj_j = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.J
+    this.keyobj_a = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.A
     );
 
-    this.keyobj_k = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.K
+    this.keyobj_d = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.D
     );
 
-    this.keyobj_l = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.L
+    this.keyobj_c = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.C
+    );
+
+    this.keyobj_v = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.V
+    );
+
+    this.keyobj_b = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.B
     );
   }
 
   update() {
+
     // going right
-    if (this.cursors.right.isDown) {
+    if (this.keyobj_d.isDown) {
       if (
-        !this.checkIfAnimationIsPlaying("punchright") &&
-        !this.checkIfAnimationIsPlaying("punchleft") &&
-        !this.checkIfAnimationIsPlaying("uppercut")
+        !this.checkIfAnimationIsPlaying("punchrightBlue") &&
+        !this.checkIfAnimationIsPlaying("punchleftBlue") &&
+        !this.checkIfAnimationIsPlaying("uppercutBlue")
       ) {
         this.body.setVelocityX(60);
-        this.anims.play("walk", true);
+        //this.anims.play("walkBlue", true);
       }
     }
     // going left
-    else if (this.cursors.left.isDown) {
+    else if (this.keyobj_a.isDown) {
       if (
-        !this.checkIfAnimationIsPlaying("punchright") &&
-        !this.checkIfAnimationIsPlaying("punchleft") &&
-        !this.checkIfAnimationIsPlaying("uppercut")
+        !this.checkIfAnimationIsPlaying("punchrightBlue") &&
+        !this.checkIfAnimationIsPlaying("punchleftBlue") &&
+        !this.checkIfAnimationIsPlaying("uppercutBlue")
       ) {
         this.body.setVelocityX(-60);
-        this.anims.play("walkback", true);
+        this.anims.play("walkbackBlue", true);
       }
     }
     //idle
     else {
       if (
-        !this.checkIfAnimationIsPlaying("punchright") &&
-        !this.checkIfAnimationIsPlaying("punchleft") &&
-        !this.checkIfAnimationIsPlaying("uppercut")
+        !this.checkIfAnimationIsPlaying("punchrightBlue") &&
+        !this.checkIfAnimationIsPlaying("punchleftBlue") &&
+        !this.checkIfAnimationIsPlaying("uppercutBlue")
       ) {
         this.body.setVelocityX(0);
-        this.anims.play("idle", true);
+        this.anims.play("idleBlue", true);
       }
     }
-
-    if (Phaser.Input.Keyboard.JustDown(this.keyobj_j)) {
-      this.attackanimation("punchright");
-    } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_k)) {
-      this.attackanimation("punchleft");
+    
+    if (Phaser.Input.Keyboard.JustDown(this.keyobj_c)) {
+      this.attackanimation("punchrightBlue");
+    } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_v)) {
+      this.attackanimation("punchleftBlue");
     }
-    if (Phaser.Input.Keyboard.JustDown(this.keyobj_l)) {
-      if (!this.checkIfAnimationIsPlaying("punchright"))
-        this.attackanimation("uppercut");
+    if (Phaser.Input.Keyboard.JustDown(this.keyobj_b)) {
+      if (!this.checkIfAnimationIsPlaying("punchrightBlue"))
+        this.attackanimation("uppercutBlue");
     }
   }
 
