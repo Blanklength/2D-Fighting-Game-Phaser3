@@ -6,6 +6,7 @@
 class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, color) {
     super(scene, x, y, color);
+    this.atack_started = false;
 
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
@@ -22,7 +23,6 @@ class Player extends Phaser.GameObjects.Sprite {
     this.body.setSize(300, 300, true);
     this.body.setGravityY(100);
     this.body.setCollideWorldBounds(true);
-
 
     //Methoden Aufrufe für Erstellung
     this.init();
@@ -79,47 +79,55 @@ class Player extends Phaser.GameObjects.Sprite {
 
   update() {
     // going right
-    if (this.cursors.right.isDown) {
-      if (
-        !this.checkIfAnimationIsPlaying("punchright") &&
-        !this.checkIfAnimationIsPlaying("punchleft") &&
-        !this.checkIfAnimationIsPlaying("uppercut")
-      ) {
-        this.body.setVelocityX(60);
-        this.anims.play("walk", true);
+    if (this.hp > 0) {
+      if (this.cursors.right.isDown) {
+        if (
+          !this.checkIfAnimationIsPlaying("punchright") &&
+          !this.checkIfAnimationIsPlaying("punchleft") &&
+          !this.checkIfAnimationIsPlaying("uppercut")
+        ) {
+          this.body.setVelocityX(60);
+          this.anims.play("walk", true);
+        }
       }
-    }
-    // going left
-    else if (this.cursors.left.isDown) {
-      if (
-        !this.checkIfAnimationIsPlaying("punchright") &&
-        !this.checkIfAnimationIsPlaying("punchleft") &&
-        !this.checkIfAnimationIsPlaying("uppercut")
-      ) {
-        this.body.setVelocityX(-60);
-        this.anims.play("walkback", true);
+      // going left
+      else if (this.cursors.left.isDown) {
+        if (
+          !this.checkIfAnimationIsPlaying("punchright") &&
+          !this.checkIfAnimationIsPlaying("punchleft") &&
+          !this.checkIfAnimationIsPlaying("uppercut")
+        ) {
+          this.body.setVelocityX(-60);
+          this.anims.play("walkback", true);
+        }
       }
-    }
-    //idle
-    else {
-      if (
-        !this.checkIfAnimationIsPlaying("punchright") &&
-        !this.checkIfAnimationIsPlaying("punchleft") &&
-        !this.checkIfAnimationIsPlaying("uppercut")
-      ) {
-        this.body.setVelocityX(0);
-        this.anims.play("idle", true);
+      //idle
+      else {
+        if (
+          !this.checkIfAnimationIsPlaying("punchright") &&
+          !this.checkIfAnimationIsPlaying("punchleft") &&
+          !this.checkIfAnimationIsPlaying("uppercut")
+        ) {
+          this.body.setVelocityX(0);
+          this.anims.play("idle", true);
+        }
       }
-    }
 
-    if (Phaser.Input.Keyboard.JustDown(this.keyobj_j)) {
-      this.attackanimation("punchright");
-    } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_k)) {
-      this.attackanimation("punchleft");
-    }
-    if (Phaser.Input.Keyboard.JustDown(this.keyobj_l)) {
-      if (!this.checkIfAnimationIsPlaying("punchright"))
+      if (Phaser.Input.Keyboard.JustDown(this.keyobj_j)) {
+        this.atack_started = true;
+        this.attackanimation("punchright");
+      } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_k)) {
+        this.atack_started = true;
+        this.attackanimation("punchleft");
+      }
+      if (Phaser.Input.Keyboard.JustDown(this.keyobj_l)) {
+        if (!this.checkIfAnimationIsPlaying("punchright"))
+          this.atack_started = true;
         this.attackanimation("uppercut");
+      }
+    } else {
+      this.anims.play("ko", true);
+      this.body.setVelocityX(0);
     }
   }
 
@@ -141,5 +149,9 @@ class Player extends Phaser.GameObjects.Sprite {
     });
 
     this.anims.play(attackType, true);
+  }
+
+  hp_lose() {
+    this.hp -= 1;
   }
 }

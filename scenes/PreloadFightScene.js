@@ -210,6 +210,48 @@ class PreloadFightScene extends Phaser.Scene {
         "assets/MiniBoxing/MiniBoxingSpriteLite/PunchLeft/__Boxing04_PunchLeft_005.png"
       
       );
+
+      this.load.image(
+        "ko0",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_000.png"
+        );
+      this.load.image(
+        "ko1",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_001.png"
+        );
+      this.load.image(
+        "ko2",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_002.png"
+        );
+      this.load.image(
+        "ko3",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_003.png"
+        );
+      this.load.image(
+        "ko4",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_004.png"
+        );
+      this.load.image(
+        "ko5",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_005.png"
+        );
+      this.load.image(
+        "ko6",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_006.png"
+        );
+      this.load.image(
+        "ko7",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_007.png"
+        );
+      this.load.image(
+        "ko8",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_008.png"
+        );
+      this.load.image(
+        "ko9",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_009.png"
+        );
+
   }
 
   preloadBlue(){
@@ -425,6 +467,48 @@ class PreloadFightScene extends Phaser.Scene {
         "assets/MiniBoxingBlue/blue/PunchLeft/__Boxing04_PunchLeft_005.png"
       );
 
+      // ko images 
+      this.load.image(
+        'koBlue0',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_000.png'
+      )
+      this.load.image(
+        'koBlue1',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_001.png'
+      )
+      this.load.image(
+        'koBlue2',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_002.png'
+      )
+      this.load.image(
+        'koBlue3',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_003.png'
+      )
+      this.load.image(
+        'koBlue4',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_004.png'
+      )
+      this.load.image(
+        'koBlue5',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_005.png'
+      )
+      this.load.image(
+        'koBlue6',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_006.png'
+      )
+      this.load.image(
+        'koBlue7',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_007.png'
+      )
+      this.load.image(
+        'koBlue8',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_008.png'
+      )
+      this.load.image(
+        'koBlue9',
+        'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_009.png'
+      )
+      
   }
 
 
@@ -516,6 +600,23 @@ class PreloadFightScene extends Phaser.Scene {
         { key: "uppercut3" },
         { key: "uppercut4" },
         { key: "uppercut5" },
+      ],
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: "ko",
+      frames: [
+        { key: "ko0" },
+        { key: "ko1" },
+        { key: "ko2" },
+        { key: "ko3" },
+        { key: "ko4" },
+        { key: "ko5" },
+        { key: "ko6" },
+        { key: "ko7" },
+        { key: "ko8" },
+        { key: "ko9" },
       ],
       frameRate: 15,
     });
@@ -618,6 +719,24 @@ class PreloadFightScene extends Phaser.Scene {
       frameRate: 15,
     });
 
+    this.anims.create({
+      key: "koBlue",
+      frames: [
+        // koBlue0
+        { key: "koBlue0" },
+        { key: "koBlue1" },
+        { key: "koBlue2" },
+        { key: "koBlue3" },
+        { key: "koBlue4" },
+        { key: "koBlue5" },
+        { key: "koBlue6" },
+        { key: "koBlue7" },
+        { key: "koBlue8" },
+        { key: "koBlue9" },
+      ],
+      frameRate: 15,
+    });
+
   }
 
   create() {
@@ -626,6 +745,4 @@ class PreloadFightScene extends Phaser.Scene {
     this.scene.start("FightScene");
   }
 
-
-  
 }

@@ -6,6 +6,7 @@
 class Player2 extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, color) {
     super(scene, x, y, color);
+    this.atack_started = false;
 
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
@@ -15,10 +16,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
     this.setTexture("idle0Blue");
     this.play("idleBlue");
 
-
-
     this.hp = 50;
-
 
     // player Config
     this.body.setBounce(0.2);
@@ -90,47 +88,55 @@ class Player2 extends Phaser.GameObjects.Sprite {
   update() {
     // going right
     this.flipX = true;
-    if (this.keyobj_d.isDown) {
-      if (
-        !this.checkIfAnimationIsPlaying("punchrightBlue") &&
-        !this.checkIfAnimationIsPlaying("punchleftBlue") &&
-        !this.checkIfAnimationIsPlaying("uppercutBlue")
-      ) {
-        this.body.setVelocityX(60);
-        this.anims.play("walkbackBlue", true);
+    if (this.hp > 0) {
+      if (this.keyobj_d.isDown) {
+        if (
+          !this.checkIfAnimationIsPlaying("punchrightBlue") &&
+          !this.checkIfAnimationIsPlaying("punchleftBlue") &&
+          !this.checkIfAnimationIsPlaying("uppercutBlue")
+        ) {
+          this.body.setVelocityX(60);
+          this.anims.play("walkbackBlue", true);
+        }
       }
-    }
-    // going left
-    else if (this.keyobj_a.isDown) {
-      if (
-        !this.checkIfAnimationIsPlaying("punchrightBlue") &&
-        !this.checkIfAnimationIsPlaying("punchleftBlue") &&
-        !this.checkIfAnimationIsPlaying("uppercutBlue")
-      ) {
-        this.body.setVelocityX(-60);
-        this.anims.play("walkBlue", true);
+      // going left
+      else if (this.keyobj_a.isDown) {
+        if (
+          !this.checkIfAnimationIsPlaying("punchrightBlue") &&
+          !this.checkIfAnimationIsPlaying("punchleftBlue") &&
+          !this.checkIfAnimationIsPlaying("uppercutBlue")
+        ) {
+          this.body.setVelocityX(-60);
+          this.anims.play("walkBlue", true);
+        }
       }
-    }
-    //idle
-    else {
-      if (
-        !this.checkIfAnimationIsPlaying("punchrightBlue") &&
-        !this.checkIfAnimationIsPlaying("punchleftBlue") &&
-        !this.checkIfAnimationIsPlaying("uppercutBlue")
-      ) {
-        this.body.setVelocityX(0);
-        this.anims.play("idleBlue", true);
+      //idle
+      else {
+        if (
+          !this.checkIfAnimationIsPlaying("punchrightBlue") &&
+          !this.checkIfAnimationIsPlaying("punchleftBlue") &&
+          !this.checkIfAnimationIsPlaying("uppercutBlue")
+        ) {
+          this.body.setVelocityX(0);
+          this.anims.play("idleBlue", true);
+        }
       }
-    }
 
-    if (Phaser.Input.Keyboard.JustDown(this.keyobj_c)) {
-      this.attackanimation("punchrightBlue");
-    } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_v)) {
-      this.attackanimation("punchleftBlue");
-    }
-    if (Phaser.Input.Keyboard.JustDown(this.keyobj_b)) {
-      if (!this.checkIfAnimationIsPlaying("punchrightBlue"))
-        this.attackanimation("uppercutBlue");
+      if (Phaser.Input.Keyboard.JustDown(this.keyobj_c)) {
+        this.attackanimation("punchrightBlue");
+        this.atack_started = true;
+      } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_v)) {
+        this.attackanimation("punchleftBlue");
+        this.atack_started = true;
+      }
+      if (Phaser.Input.Keyboard.JustDown(this.keyobj_b)) {
+        if (!this.checkIfAnimationIsPlaying("punchrightBlue"))
+          this.attackanimation("uppercutBlue");
+        this.atack_started = true;
+      }
+    } else {
+      this.anims.play("koBlue", true);
+      this.body.setVelocityX(0);
     }
   }
 
@@ -140,7 +146,6 @@ class Player2 extends Phaser.GameObjects.Sprite {
 
   attackanimation(attackType) {
     this.body.setVelocityX(0);
-
 
     this.hitbox = this.scene.add
       .sprite(this.x, this.y - this.body.height / 2)
@@ -153,5 +158,9 @@ class Player2 extends Phaser.GameObjects.Sprite {
     });
 
     this.anims.play(attackType, true);
+  }
+
+  hp_lose() {
+    this.hp -= 1;
   }
 }
