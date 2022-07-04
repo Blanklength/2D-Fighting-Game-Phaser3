@@ -117,6 +117,7 @@ class Player extends Phaser.GameObjects.Sprite {
         ) {
           this.body.setVelocityX(0);
           this.anims.play("idle", true);
+          //this.anims.play("ssj_transform")
           this.scene.combotext1.setText("")
         }
       }

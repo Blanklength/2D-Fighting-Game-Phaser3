@@ -8,7 +8,7 @@ class PreloadFightScene extends Phaser.Scene {
     this.load.image("ground", "assets/ground.png");
     this.load.image("start", "assets/better_start_btn.png");
     this.load.image('hpBlock', "assets/hp/hp_block.png");
-    this.load.spritesheet("ssj", "assets/ssj_aura.png",  { frameWidth: 32, frameHeight: 48 })
+    this.load.spritesheet("ssj", "assets/ssj_aura.png",  { frameWidth: 80, frameHeight: 80 })
 
     this.preloadBlue();
     this.preloadRed();
@@ -295,10 +295,49 @@ class PreloadFightScene extends Phaser.Scene {
         "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_008.png"
       )
 
-    
       this.load.image(
         "block9",
         "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_009.png"
+      )
+
+      this.load.image(
+        "dizzy0",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_000.png"
+      )
+      
+      this.load.image(
+        "dizzy1",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_001.png"
+      )
+
+      this.load.image(
+        "dizzy2",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_002.png"
+      )
+      
+      this.load.image(
+        "dizzy3",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_003.png"
+      )
+
+      this.load.image(
+        "dizzy4",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_004.png"
+      )
+
+      this.load.image(
+        "dizzy5",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_005.png"
+      )
+
+      this.load.image(
+        "dizzy6",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_006.png"
+      )
+
+      this.load.image(
+        "dizzy7",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_007.png"
       )
 
   }
@@ -608,6 +647,44 @@ class PreloadFightScene extends Phaser.Scene {
         'blockBlue9',
         'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_009.png'
       )
+
+      this.load.image(
+        'dizzyBlue0',
+        'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_000.png'
+      )
+      this.load.image(
+        'dizzyBlue1',
+        'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_001.png'
+      )
+      this.load.image(
+        'dizzyBlue2',
+        'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_002.png'
+      )
+
+      this.load.image(
+        'dizzyBlue3',
+        'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_003.png'
+      )
+
+      this.load.image(
+        'dizzyBlue4',
+        'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_004.png'
+      )
+
+      this.load.image(
+        'dizzyBlue5',
+        'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_005.png'
+      )
+
+      this.load.image(
+        'dizzyBlue6',
+        'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_006.png'
+      )
+
+      this.load.image(
+        'dizzyBlue7',
+        'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_007.png'
+      )
       
   }
 
@@ -737,6 +814,20 @@ class PreloadFightScene extends Phaser.Scene {
         {key: "block9"},
       ],
       frameRate: 15
+    })
+
+    this.anims.create({
+      key: "dizzy",
+      frames: [
+        {key: "dizzy0"},
+        {key: "dizzy1"},
+        {key: "dizzy2"},
+        {key: "dizzy3"},
+        {key: "dizzy4"},
+        {key: "dizzy5"},
+        {key: "dizzy6"},
+        {key: "dizzy7"},
+      ]
     })
   }
 
@@ -874,8 +965,22 @@ class PreloadFightScene extends Phaser.Scene {
     })
 
     this.anims.create({
+      key: "dizzyBlue",
+      frames: [
+        {key: "dizzyBlue0"},
+        {key: "dizzyBlue1"},
+        {key: "dizzyBlue2"},
+        {key: "dizzyBlue3"},
+        {key: "dizzyBlue4"},
+        {key: "dizzyBlue5"},
+        {key: "dizzyBlue6"},
+        {key: "dizzyBlue7"},
+      ]
+    })
+
+    this.anims.create({
       key: "ssj_transform",
-      frames: this.anims.generateFrameNumbers('ssj', {start: 0, end: 3}),
+      frames: this.anims.generateFrameNumbers('ssj', { frames: [ 0, 1, 2] }),
       frameRate: 15,
       repeat: -1
     })
