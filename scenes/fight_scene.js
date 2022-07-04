@@ -5,21 +5,29 @@ class FightScene extends Phaser.Scene {
 
   preload() {}
 
-
   update_hp() {
     let { width, height } = this.sys.game.canvas;
     if (this.player1.atack_started) {
       if (this.physics.overlap(this.player1, this.player2)) {
-        this.player2.hp_lose();
+        if (this.player2.is_blocking == false){
+          this.player2.hp_lose();
+        }
+
         this.knockback_player_2();
         this.hpBar2.destroy(true, this);
-        this.hpBar2 = this.create_hpBar(this.player2, width - (width - width / 8),60);
+        this.hpBar2 = this.create_hpBar(
+          this.player2,
+          width - (width - width / 8),
+          60
+        );
       }
     }
 
     if (this.player2.atack_started) {
       if (this.physics.overlap(this.player1, this.player2)) {
-        this.player1.hp_lose();
+        if (this.player1.is_blocking == false){
+          this.player1.hp_lose();
+        }
         this.knockback_player_1();
         this.hpBar1.destroy(true, this);
         this.hpBar1 = this.create_hpBar(this.player1, width - width / 3, 60);
@@ -28,7 +36,17 @@ class FightScene extends Phaser.Scene {
   }
 
   create() {
+    this.scene.launch("Stage1");
+
     let { width, height } = this.sys.game.canvas;
+
+    // creating configs for text
+    var textConfig={fontSize:'60px',color:'#000000',fontFamily: 'Arial'};
+
+    //creating combo text
+    this.combotext2 = this.add.text(0, 80, "", textConfig)
+    this.combotext1 = this.add.text(width/1.75, 80, "Blyat", textConfig)
+  
     this.ground = this.physics.add.staticImage(width / 2, height / 2, "ground");
     this.ground.scaleX = 10;
     this.ground.scaleY = 0.1;
@@ -37,12 +55,16 @@ class FightScene extends Phaser.Scene {
     this.player1 = new Player(this, 800, 10, "blue");
     this.player2 = new Player2(this, 400, 10, "red");
     this.hpBar1 = this.create_hpBar(this.player1, width - width / 3, 60);
-    this.hpBar2 = this.create_hpBar(this.player2, width - (width - width / 8),60);
+    this.hpBar2 = this.create_hpBar(
+      this.player2,
+      width - (width - width / 8),
+      60
+    );
 
     // collider
     this.physics.add.collider(this.player1, this.ground);
     this.physics.add.collider(this.player2, this.ground);
-    this.physics.add.collider(this.player1, this.player2);
+    this.collider_players = this.physics.add.collider(this.player1, this.player2);
   }
 
   create_hpBar(player, x, y) {
@@ -72,7 +94,6 @@ class FightScene extends Phaser.Scene {
         300
       ).refreshBody;
       this.player2.refreshBody;
-      this.physics.add.collider(this.player1, this.player2);
     }
 
     if (this.atackmove_p2) {
@@ -84,28 +105,37 @@ class FightScene extends Phaser.Scene {
         300
       ).refreshBody;
       this.player1.refreshBody;
-      this.physics.add.collider(this.player1, this.player2);
     }
   }
 
   knockback_player_2() {
-    this.player2.body.setVelocityX(-30);
+    this.player2.is_in_knockback = true;
+    this.player2.current_knockback_speed = 200;
     this.player1.atack_started = false;
   }
 
   knockback_player_1() {
-    this.player1.body.setVelocityX(30);
+    this.player1.is_in_knockback = true;
+    this.player1.current_knockback_speed = 200;
     this.player2.atack_started = false;
   }
 
-  update() {
+  destroy_collider_players() {
+    if (this.player1.hp == 0 || this.player2.hp == 0) {
+      this.physics.world.removeCollider(this.collider_players);
+    }
+  }
 
+  update() {
     // changing hitbox if a move is done
     this.changeHitBoxesByAtack();
 
     // updating hp's
-    this.update_hp()
-    
+    this.update_hp();
+
+    // destroy collider if someone is ko
+    this.destroy_collider_players();
+
     // updating players
     this.player2.update();
     this.player1.update();

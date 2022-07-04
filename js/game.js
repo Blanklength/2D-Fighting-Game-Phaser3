@@ -6,7 +6,7 @@ var config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true,
+      debug: false,
       gravity: { y: 100 }
 
     },
@@ -17,7 +17,7 @@ var config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
 
-  scene: [TitleScreen, PreloadFightScene, FightScene],
+  scene: [TitleScreen, PreloadFightScene, FightScene, Stage1],
 };
 
 var game = new Phaser.Game(config);

@@ -3,6 +3,9 @@ class Player2 extends Phaser.GameObjects.Sprite {
     super(scene, x, y, color);
     this.atack_started = false;
     this.ko_animation_played = false;
+    this.is_blocking = false;
+    this.is_in_knockback = false;
+    this.current_knockback_speed = 0;
 
 
     this.scene.physics.world.enable(this);
@@ -58,6 +61,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
         event.key == "uppercutBlue"
       )
         this.anims.play("idleBlue", true);
+        this.is_blocking = false;
     });
 
     // key objects
@@ -80,6 +84,10 @@ class Player2 extends Phaser.GameObjects.Sprite {
     this.keyobj_b = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.B
     );
+
+    this.keyobj_x = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.X
+    );
   }
 
   update() {
@@ -89,7 +97,8 @@ class Player2 extends Phaser.GameObjects.Sprite {
         if (
           !this.checkIfAnimationIsPlaying("punchrightBlue") &&
           !this.checkIfAnimationIsPlaying("punchleftBlue") &&
-          !this.checkIfAnimationIsPlaying("uppercutBlue")
+          !this.checkIfAnimationIsPlaying("uppercutBlue") &&
+          !this.checkIfAnimationIsPlaying("blockBlue")
         ) {
           this.body.setVelocityX(60);
           this.anims.play("walkBlue", true);
@@ -100,7 +109,8 @@ class Player2 extends Phaser.GameObjects.Sprite {
         if (
           !this.checkIfAnimationIsPlaying("punchrightBlue") &&
           !this.checkIfAnimationIsPlaying("punchleftBlue") &&
-          !this.checkIfAnimationIsPlaying("uppercutBlue")
+          !this.checkIfAnimationIsPlaying("uppercutBlue") &&
+          !this.checkIfAnimationIsPlaying("blockBlue")
         ) {
           this.body.setVelocityX(-60);
           this.anims.play("walkbackBlue", true);
@@ -115,26 +125,46 @@ class Player2 extends Phaser.GameObjects.Sprite {
         ) {
           this.body.setVelocityX(0);
           this.anims.play("idleBlue", true);
+          //this.anims.play("ssj_transform", true)
+          this.scene.combotext2.setText("");
+        }
+        if (this.is_in_knockback){
+          if (this.current_knockback_speed <= 0){
+            this.is_in_knockback = false;    
+          }
+          this.body.setVelocityX(this.body.velocity.x - this.current_knockback_speed);
+          this.current_knockback_speed -= 5;
         }
       }
-
+      // punchright
       if (Phaser.Input.Keyboard.JustDown(this.keyobj_c)) {
         this.attackanimation("punchrightBlue");
+        this.scene.combotext2.setText("1 x Punch Right!!!")
         this.atack_started = true;
+      // punchleft
       } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_v)) {
         this.attackanimation("punchleftBlue");
+        this.scene.combotext2.setText("1 x Punch Left!!!")
         this.atack_started = true;
       }
+      // uppercut
       if (Phaser.Input.Keyboard.JustDown(this.keyobj_b)) {
         if (!this.checkIfAnimationIsPlaying("punchrightBlue"))
           this.attackanimation("uppercutBlue");
+         this.scene.combotext2.setText("1 x Uppercut!!!")
         this.atack_started = true;
+      }
+      if (this.keyobj_x.isDown){
+        this.attackanimation("blockBlue")
+        this.is_blocking = true;
+        this.scene.combotext2.setText("BLOOCCCKK!!!")
       }
     } else {
       if (this.ko_animation_played == false){
         this.ko_animation_played = true;
         this.anims.play("koBlue", true);
         this.body.setVelocityX(0);
+        this.body.setBounce(0);
       }
     }
   }

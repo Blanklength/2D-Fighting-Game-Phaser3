@@ -8,7 +8,7 @@ class PreloadFightScene extends Phaser.Scene {
     this.load.image("ground", "assets/ground.png");
     this.load.image("start", "assets/better_start_btn.png");
     this.load.image('hpBlock', "assets/hp/hp_block.png");
-    // moves for playere 1
+    this.load.spritesheet("ssj", "assets/ssj_aura.png",  { frameWidth: 32, frameHeight: 48 })
 
     this.preloadBlue();
     this.preloadRed();
@@ -873,9 +873,17 @@ class PreloadFightScene extends Phaser.Scene {
       frameRate: 15
     })
 
+    this.anims.create({
+      key: "ssj_transform",
+      frames: this.anims.generateFrameNumbers('ssj', {start: 0, end: 3}),
+      frameRate: 15,
+      repeat: -1
+    })
+
   }
 
   create() {
+
     this.createAnimsRed();
     this.createAnimsBlue();
     this.scene.start("FightScene");
