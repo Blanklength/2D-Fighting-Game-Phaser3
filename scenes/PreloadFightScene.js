@@ -12,8 +12,6 @@ class PreloadFightScene extends Phaser.Scene {
 
     this.preloadBlue();
     this.preloadRed();
-
-
   }
 
   preloadRed(){
@@ -234,23 +232,74 @@ class PreloadFightScene extends Phaser.Scene {
       this.load.image(
         "ko5",
         "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_005.png"
-        );
+                );
       this.load.image(
         "ko6",
         "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_006.png"
-        );
+      );
       this.load.image(
         "ko7",
         "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_007.png"
-        );
+      );
       this.load.image(
         "ko8",
         "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_008.png"
-        );
+      );
       this.load.image(
         "ko9",
         "assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_009.png"
-        );
+      );
+
+      this.load.image(
+        "block0",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_000.png"
+      )
+
+      this.load.image(
+        "block1",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_001.png"
+      )
+
+      this.load.image(
+        "block2",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_002.png"
+      )
+
+      this.load.image(
+        "block3",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_003.png"
+      )
+
+      this.load.image(
+        "block4",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_004.png"
+      )
+
+      this.load.image(
+        "block5",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_005.png"
+      )
+
+      this.load.image(
+        "block6",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_006.png"
+      )
+
+      this.load.image(
+        "block7",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_007.png"
+      )
+
+      this.load.image(
+        "block8",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_008.png"
+      )
+
+    
+      this.load.image(
+        "block9",
+        "assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_009.png"
+      )
 
   }
 
@@ -508,6 +557,57 @@ class PreloadFightScene extends Phaser.Scene {
         'koBlue9',
         'assets/MiniBoxingBlue/blue/KO/__Boxing04_KO_009.png'
       )
+
+      this.load.image(
+        'blockBlue0',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_000.png'
+      )
+
+      this.load.image(
+        'blockBlue1',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_001.png'
+      )
+
+      this.load.image(
+        'blockBlue2',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_002.png'
+      )
+
+      this.load.image(
+        'blockBlue3',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_003.png'
+      )
+
+      this.load.image(
+        'blockBlue4',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_004.png'
+      )
+
+      this.load.image(
+        'blockBlue5',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_005.png'
+      )
+
+      this.load.image(
+        'blockBlue6',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_006.png'
+      )
+
+      
+      this.load.image(
+        'blockBlue7',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_007.png'
+      )
+
+      this.load.image(
+        'blockBlue8',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_008.png'
+      )
+
+      this.load.image(
+        'blockBlue9',
+        'assets/MiniBoxingBLUE/BLUE/Blocking/__Boxing04_Blocking_009.png'
+      )
       
   }
 
@@ -619,7 +719,25 @@ class PreloadFightScene extends Phaser.Scene {
         { key: "ko9" },
       ],
       frameRate: 15,
+      repeat: 0
     });
+
+    this.anims.create({
+      key: "block",
+      frames: [
+        {key: "block0"},
+        {key: "block1"},
+        {key: "block2"},
+        {key: "block3"},
+        {key: "block4"},
+        {key: "block5"},
+        {key: "block6"},
+        {key: "block7"},
+        {key: "block8"},
+        {key: "block9"},
+      ],
+      frameRate: 15
+    })
   }
 
   createAnimsBlue(){
@@ -735,7 +853,25 @@ class PreloadFightScene extends Phaser.Scene {
         { key: "koBlue9" },
       ],
       frameRate: 15,
+      repeat: 0
     });
+
+    this.anims.create({
+      key: "blockBlue",
+      frames: [
+        {key: "blockBlue0"},
+        {key: "blockBlue1"},
+        {key: "blockBlue2"},
+        {key: "blockBlue3"},
+        {key: "blockBlue4"},
+        {key: "blockBlue5"},
+        {key: "blockBlue6"},
+        {key: "blockBlue7"},
+        {key: "blockBlue8"},
+        {key: "blockBlue9"},
+      ],
+      frameRate: 15
+    })
 
   }
 

@@ -1,12 +1,9 @@
-//Imports
-
-//Globale Variablen
-//const example = 2;
-
 class Player2 extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, color) {
     super(scene, x, y, color);
     this.atack_started = false;
+    this.ko_animation_played = false;
+
 
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
@@ -19,7 +16,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
     this.hp = 50;
 
     // player Config
-    this.body.setBounce(0.2);
+    this.body.setBounce(0.5);
     this.body.setSize(300, 300, true);
     this.body.setGravityY(100);
     this.body.setCollideWorldBounds(true);
@@ -87,7 +84,6 @@ class Player2 extends Phaser.GameObjects.Sprite {
 
   update() {
     // going right
-    this.flipX = true;
     if (this.hp > 0) {
       if (this.keyobj_d.isDown) {
         if (
@@ -96,7 +92,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("uppercutBlue")
         ) {
           this.body.setVelocityX(60);
-          this.anims.play("walkbackBlue", true);
+          this.anims.play("walkBlue", true);
         }
       }
       // going left
@@ -107,7 +103,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("uppercutBlue")
         ) {
           this.body.setVelocityX(-60);
-          this.anims.play("walkBlue", true);
+          this.anims.play("walkbackBlue", true);
         }
       }
       //idle
@@ -135,8 +131,11 @@ class Player2 extends Phaser.GameObjects.Sprite {
         this.atack_started = true;
       }
     } else {
-      this.anims.play("koBlue", true);
-      this.body.setVelocityX(0);
+      if (this.ko_animation_played == false){
+        this.ko_animation_played = true;
+        this.anims.play("koBlue", true);
+        this.body.setVelocityX(0);
+      }
     }
   }
 
