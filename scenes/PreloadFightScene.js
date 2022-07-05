@@ -8,6 +8,7 @@ class PreloadFightScene extends Phaser.Scene {
     this.load.image("ground", "assets/ground.png");
     this.load.image("start", "assets/better_start_btn.png");
     this.load.image('hpBlock', "assets/hp/hp_block.png");
+    this.load.image('shieldBlock', 'assets/shield/shield_block.png')
     this.load.spritesheet("ssj", "assets/ssj_aura.png",  { frameWidth: 80, frameHeight: 80 })
 
     this.preloadBlue();
@@ -15,7 +16,7 @@ class PreloadFightScene extends Phaser.Scene {
   }
 
   preloadRed(){
-          // idle images
+    // idle images
     this.load.image(
         "idle0",
         "assets/MiniBoxing/MiniBoxingSpriteLite/Idle/__Boxing04_Idle_000.png"
@@ -338,6 +339,39 @@ class PreloadFightScene extends Phaser.Scene {
       this.load.image(
         "dizzy7",
         "assets/MiniBoxing/MiniBoxingSpriteLite/Dizzy/__Boxing04_Dizzy_007.png"
+      )
+
+      this.load.image(
+        'hurt0',
+        'assets/MiniBoxing/MiniBoxingSpriteLite/Hurt/__Boxing04_Hurt_000.png'
+      )
+      this.load.image(
+        'hurt1',
+        'assets/MiniBoxing/MiniBoxingSpriteLite/Hurt/__Boxing04_Hurt_001.png'
+      )
+      this.load.image(
+        'hurt2',
+        'assets/MiniBoxing/MiniBoxingSpriteLite/Hurt/__Boxing04_Hurt_002.png'
+      )
+      this.load.image(
+        'hurt3',
+        'assets/MiniBoxing/MiniBoxingSpriteLite/Hurt/__Boxing04_Hurt_003.png'
+      )
+      this.load.image(
+        'hurt4',
+        'assets/MiniBoxing/MiniBoxingSpriteLite/Hurt/__Boxing04_Hurt_004.png'
+      )
+      this.load.image(
+        'hurt5',
+        'assets/MiniBoxing/MiniBoxingSpriteLite/Hurt/__Boxing04_Hurt_005.png'
+      )
+      this.load.image(
+        'hurt6',
+        'assets/MiniBoxing/MiniBoxingSpriteLite/Hurt/__Boxing04_Hurt_006.png'
+      )
+      this.load.image(
+        'hurt7',
+        'assets/MiniBoxing/MiniBoxingSpriteLite/Hurt/__Boxing04_Hurt_007.png'
       )
 
   }
@@ -685,6 +719,40 @@ class PreloadFightScene extends Phaser.Scene {
         'dizzyBlue7',
         'assets/MiniBoxingBLUE/BLUE/Dizzy/__Boxing04_Dizzy_007.png'
       )
+
+      this.load.image(
+        'hurtBlue0',
+        'assets/MiniBoxingBlue/blue/Hurt/__Boxing04_Hurt_000.png'
+      )
+      this.load.image(
+        'hurtBlue1',
+        'assets/MiniBoxingBlue/blue/Hurt/__Boxing04_Hurt_001.png'
+      )
+      this.load.image(
+        'hurtBlue2',
+        'assets/MiniBoxingBlue/blue/Hurt/__Boxing04_Hurt_002.png'
+      )
+      this.load.image(
+        'hurtBlue3',
+        'assets/MiniBoxingBlue/blue/Hurt/__Boxing04_Hurt_003.png'
+      )
+      this.load.image(
+        'hurtBlue4',
+        'assets/MiniBoxingBlue/blue/Hurt/__Boxing04_Hurt_004.png'
+      )
+      this.load.image(
+        'hurtBlue5',
+        'assets/MiniBoxingBlue/blue/Hurt/__Boxing04_Hurt_005.png'
+      )
+      this.load.image(
+        'hurtBlue6',
+        'assets/MiniBoxingBlue/blue/Hurt/__Boxing04_Hurt_006.png'
+      )
+      this.load.image(
+        'hurtBlue7',
+        'assets/MiniBoxingBlue/blue/Hurt/__Boxing04_Hurt_007.png'
+      )
+
       
   }
 
@@ -827,7 +895,23 @@ class PreloadFightScene extends Phaser.Scene {
         {key: "dizzy5"},
         {key: "dizzy6"},
         {key: "dizzy7"},
-      ]
+      ],
+      frameRate: 15
+    })
+
+    this.anims.create({
+      key: "hurt",
+      frames: [
+        {key: "hurt0"},
+        {key: "hurt1"},
+        {key: "hurt2"},
+        {key: "hurt3"},
+        {key: "hurt4"},
+        {key: "hurt5"},
+        {key: "hurt6"},
+        {key: "hurt7"},
+      ],
+      frameRate: 15
     })
   }
 
@@ -975,7 +1059,23 @@ class PreloadFightScene extends Phaser.Scene {
         {key: "dizzyBlue5"},
         {key: "dizzyBlue6"},
         {key: "dizzyBlue7"},
-      ]
+      ],
+      frameRate: 15
+    })
+
+    this.anims.create({
+      key: "hurtBlue",
+      frames: [
+      {key: "hurtBlue0"},
+      {key: "hurtBlue1"},
+      {key: "hurtBlue2"},
+      {key: "hurtBlue3"},
+      {key: "hurtBlue4"},
+      {key: "hurtBlue5"},
+      {key: "hurtBlue6"},
+      {key: "hurtBlue7"},
+    ],
+    frameRate: 15
     })
 
     this.anims.create({

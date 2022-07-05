@@ -1,12 +1,6 @@
 class Player2 extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, color) {
     super(scene, x, y, color);
-    this.atack_started = false;
-    this.ko_animation_played = false;
-    this.is_blocking = false;
-    this.is_in_knockback = false;
-    this.current_knockback_speed = 0;
-
 
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
@@ -16,12 +10,10 @@ class Player2 extends Phaser.GameObjects.Sprite {
     this.setTexture("idle0Blue");
     this.play("idleBlue");
 
-    this.hp = 50;
-
-    // player Config
     this.body.setBounce(0.5);
-    this.body.setSize(300, 300, true);
+    this.body.setSize(200, 300, true);
     this.body.setGravityY(100);
+    this.body.setOffset(220, 87);
     this.body.setCollideWorldBounds(true);
 
     //Methoden Aufrufe für Erstellung
@@ -33,7 +25,19 @@ class Player2 extends Phaser.GameObjects.Sprite {
   }
 
   init(enemies, data) {
-    //Variables
+    this.width = this.scene.sys.game.canvas.width;
+    this.height = this.scene.sys.game.canvas.height;
+
+    this.atack_started = false;
+    this.ko_animation_played = false;
+    this.is_blocking = false;
+    this.is_in_knockback = false;
+    this.current_knockback_speed = 0;
+    this.is_hp_losing = false;
+
+    this.hp = 50;
+    this.shield = 5;
+    this.colliderPunch;
   }
 
   create() {
@@ -55,13 +59,20 @@ class Player2 extends Phaser.GameObjects.Sprite {
 
     // Look in this function, after one animation is completed
     this.on("animationcomplete", (event) => {
-      if (
-        event.key == "punchrightBlue" ||
-        event.key == "punchleftBlue" ||
-        event.key == "uppercutBlue"
-      )
-        this.anims.play("idleBlue", true);
+      try {
+        if (
+          event.key == "punchrightBlue" ||
+          event.key == "punchleftBlue" ||
+          event.key == "uppercutBlue" ||
+          event.key == "hurtBlue" ||
+          event.key == "dizzyBlue"
+        ) {
+          this.anims.play("idleBlue", true);
+          this.colliderPunch.destroy(true);
+        }
+
         this.is_blocking = false;
+      } catch (e) {}
     });
 
     // key objects
@@ -101,7 +112,8 @@ class Player2 extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("blockBlue")
         ) {
           this.body.setVelocityX(60);
-          this.anims.play("walkBlue", true);
+          if (!this.checkIfAnimationIsPlaying("hurtBlue"))
+            this.anims.play("walkBlue", true);
         }
       }
       // going left
@@ -113,7 +125,8 @@ class Player2 extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("blockBlue")
         ) {
           this.body.setVelocityX(-60);
-          this.anims.play("walkbackBlue", true);
+          if (!this.checkIfAnimationIsPlaying("hurtBlue"))
+            this.anims.play("walkbackBlue", true);
         }
       }
       //idle
@@ -124,47 +137,67 @@ class Player2 extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("uppercutBlue")
         ) {
           this.body.setVelocityX(0);
-          this.anims.play("idleBlue", true);
+          if (!this.checkIfAnimationIsPlaying("hurtBlue"))
+            this.anims.play("idleBlue", true);
           //this.anims.play("ssj_transform", true)
           this.scene.combotext2.setText("");
         }
-        if (this.is_in_knockback){
-          if (this.current_knockback_speed <= 0){
-            this.is_in_knockback = false;    
+        if (this.is_in_knockback) {
+          if (this.current_knockback_speed <= 0) {
+            this.is_in_knockback = false;
           }
-          this.body.setVelocityX(this.body.velocity.x - this.current_knockback_speed);
+          this.body.setVelocityX(
+            this.body.velocity.x - this.current_knockback_speed
+          );
           this.current_knockback_speed -= 5;
         }
+
+        if (this.is_hp_losing) {
+          this.anims.play("hurtBlue");
+        }
+
+        this.on(
+          Phaser.Animations.Events.ANIMATION_COMPLETE,
+          this.reset_hurt,
+          this
+        );
+        this.is_hp_losing = false;
       }
       // punchright
       if (Phaser.Input.Keyboard.JustDown(this.keyobj_c)) {
         this.attackanimation("punchrightBlue");
-        this.scene.combotext2.setText("1 x Punch Right!!!")
+        this.scene.combotext2.setText("1 x Punch Right!!!");
         this.atack_started = true;
-      // punchleft
+        // punchleft
       } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_v)) {
         this.attackanimation("punchleftBlue");
-        this.scene.combotext2.setText("1 x Punch Left!!!")
+        this.scene.combotext2.setText("1 x Punch Left!!!");
         this.atack_started = true;
       }
       // uppercut
       if (Phaser.Input.Keyboard.JustDown(this.keyobj_b)) {
         if (!this.checkIfAnimationIsPlaying("punchrightBlue"))
           this.attackanimation("uppercutBlue");
-         this.scene.combotext2.setText("1 x Uppercut!!!")
+        this.scene.combotext2.setText("1 x Uppercut!!!");
         this.atack_started = true;
       }
-      if (this.keyobj_x.isDown){
-        this.attackanimation("blockBlue")
+      this.is_blocking = false;
+      if (this.keyobj_x.isDown && this.shield != 0) {
+        this.blockAnimation("blockBlue");
         this.is_blocking = true;
-        this.scene.combotext2.setText("BLOOCCCKK!!!")
+        this.scene.combotext2.setText("BLOOCCCKK!!!");
+      }
+      if (this.shield <= 0) {
+        this.shield+=1
+        this.anims.play("dizzyBlue", true);
       }
     } else {
-      if (this.ko_animation_played == false){
+      if (this.ko_animation_played == false) {
         this.ko_animation_played = true;
         this.anims.play("koBlue", true);
         this.body.setVelocityX(0);
         this.body.setBounce(0);
+        this.scene.combotext2.setText("KOOOOOO!!!!!");
       }
     }
   }
@@ -187,9 +220,49 @@ class Player2 extends Phaser.GameObjects.Sprite {
     });
 
     this.anims.play(attackType, true);
+    this.attackCalulation();
+  }
+
+  blockAnimation(anim) {
+    this.body.setVelocityX(0);
+    this.anims.play(anim, true);
+  }
+
+  attackCalulation() {
+    // calcutating hitbox by atack
+    // var animation_progress = this.player1.anims.getProgress();
+    this.colliderPunch = this.scene.add.rectangle(
+      this.x + 200,
+      this.y + 70,
+      80,
+      80
+    );
+
+    this.scene.physics.add.existing(this.colliderPunch);
+    this.colliderPunch.body.setImmovable(true);
+
+    this.colliderPunch.setVisible(false);
+
+    if (this.scene.physics.overlap(this.scene.player1, this.colliderPunch)) {
+      this.scene.update_hp_shield_player2();
+
+      if (this.colliderPunch) this.colliderPunch.destroy();
+    }
+  }
+
+  reset_hurt() {
+    this.is_hp_losing = false;
   }
 
   hp_lose() {
     this.hp -= 1;
+    this.is_hp_losing = true;
+    //this.anims.play("hurtBlue", true)
+  }
+
+  shield_lose() {
+    if (this.shield > 0) {
+      this.shield -= 1;
+    }
   }
 }
