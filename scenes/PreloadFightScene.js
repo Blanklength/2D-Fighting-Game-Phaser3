@@ -9,7 +9,13 @@ class PreloadFightScene extends Phaser.Scene {
     this.load.image("start", "assets/better_start_btn.png");
     this.load.image('hpBlock', "assets/hp/hp_block.png");
     this.load.image('shieldBlock', 'assets/shield/shield_block.png')
-    this.load.spritesheet("ssj", "assets/ssj_aura.png",  { frameWidth: 80, frameHeight: 80 })
+    
+
+    // ssj images
+    this.load.image("ssj0", "assets/ssj_aura/ssj_frame_0.png")
+    this.load.image("ssj0", "assets/ssj_aura/ssj_frame_1.png")
+    this.load.image("ssj0", "assets/ssj_aura/ssj_frame_2.png")
+
 
     this.preloadBlue();
     this.preloadRed();
@@ -1078,12 +1084,6 @@ class PreloadFightScene extends Phaser.Scene {
     frameRate: 15
     })
 
-    this.anims.create({
-      key: "ssj_transform",
-      frames: this.anims.generateFrameNumbers('ssj', { frames: [ 0, 1, 2] }),
-      frameRate: 15,
-      repeat: -1
-    })
 
   }
 
@@ -1091,6 +1091,21 @@ class PreloadFightScene extends Phaser.Scene {
 
     this.createAnimsRed();
     this.createAnimsBlue();
+    
+    // ssj
+    this.anims.create({
+      key: "ssj",
+      frames: [
+        {key: "ssj0"},
+        {key: "ssj1"},
+        {key: "ssj2"}
+      ],
+      frameRate: 15,
+      repeat: -1
+      
+    })
+
+
     this.scene.start("FightScene");
   }
 

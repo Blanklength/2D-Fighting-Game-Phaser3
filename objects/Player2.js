@@ -64,8 +64,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
           event.key == "punchrightBlue" ||
           event.key == "punchleftBlue" ||
           event.key == "uppercutBlue" ||
-          event.key == "hurtBlue" ||
-          event.key == "dizzyBlue"
+          event.key == "hurtBlue"
         ) {
           this.anims.play("idleBlue", true);
           this.colliderPunch.destroy(true);
@@ -186,10 +185,6 @@ class Player2 extends Phaser.GameObjects.Sprite {
         this.blockAnimation("blockBlue");
         this.is_blocking = true;
         this.scene.combotext2.setText("BLOOCCCKK!!!");
-      }
-      if (this.shield <= 0) {
-        this.shield+=1
-        this.anims.play("dizzyBlue", true);
       }
     } else {
       if (this.ko_animation_played == false) {

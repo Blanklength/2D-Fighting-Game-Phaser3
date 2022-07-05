@@ -6,6 +6,7 @@ class Player extends Phaser.GameObjects.Sprite {
     this.scene.add.existing(this);
 
     this.setPosition(x, y);
+    this.aura = this.scene.add.sprite(this.body.x, this.body.y, "hp_block")
 
     this.setTexture("idle0");
     this.play("idle");
@@ -92,6 +93,9 @@ class Player extends Phaser.GameObjects.Sprite {
   }
 
   update() {
+    this.aura.destroy(true, this)
+    this.aura = this.scene.add.sprite(this.body.x+100, this.body.y+150, "hp_block").setDepth(-1)
+    this.aura.anims.play("ssj", true)
     this.flipX = true;
     // going right
     if (this.hp > 0) {
