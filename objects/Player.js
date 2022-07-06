@@ -4,9 +4,8 @@ class Player extends Phaser.GameObjects.Sprite {
 
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-
     this.setPosition(x, y);
-    this.aura = this.scene.add.sprite(this.body.x, this.body.y, "hp_block")
+    this.aura = this.scene.add.sprite(this.body.x, this.body.y, "hp_block");
 
     this.setTexture("idle0");
     this.play("idle");
@@ -38,23 +37,10 @@ class Player extends Phaser.GameObjects.Sprite {
     this.hp = 50;
     this.shield = 5;
     this.colliderPunch;
+    this.is_ssj = false;
   }
 
   create() {
-    // Controls
-    // this.cursors = this.scene.input.keyboard.createCursorKeys() //For the Arrow Keys
-    //Letter Keys
-    this.wasd = this.scene.input.keyboard.addKeys({
-      up: Phaser.Input.Keyboard.KeyCodes.W,
-      left: Phaser.Input.Keyboard.KeyCodes.A,
-      right: Phaser.Input.Keyboard.KeyCodes.D,
-      down: Phaser.Input.Keyboard.KeyCodes.S,
-      up_space: Phaser.Input.Keyboard.KeyCodes.SPACE,
-      e: Phaser.Input.Keyboard.KeyCodes.E,
-      q: Phaser.Input.Keyboard.KeyCodes.Q,
-      esc: Phaser.Input.Keyboard.KeyCodes.ESC,
-      shift: Phaser.Input.Keyboard.KeyCodes.SHIFT,
-    });
     this.cursors = this.scene.input.keyboard.createCursorKeys();
 
     // Look in this function, after one animation is completed
@@ -90,12 +76,14 @@ class Player extends Phaser.GameObjects.Sprite {
     this.keyobj_h = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.H
     );
+
+    this.keyobj_o = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.O
+    );
   }
 
   update() {
-    this.aura.destroy(true, this)
-    this.aura = this.scene.add.sprite(this.body.x+100, this.body.y+150, "hp_block").setDepth(-1)
-    this.aura.anims.play("ssj", true)
+    this.aura.setPosition(this.body.x + 100, this.body.y + 150).setDepth(-1);
     this.flipX = true;
     // going right
     if (this.hp > 0) {
@@ -134,7 +122,6 @@ class Player extends Phaser.GameObjects.Sprite {
           this.body.setVelocityX(0);
           if (!this.checkIfAnimationIsPlaying("hurt"))
             this.anims.play("idle", true);
-          //this.anims.play("ssj_transform")
           this.scene.combotext1.setText("");
         }
       }
@@ -178,6 +165,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.blockAnimation("block");
         this.scene.combotext1.setText("Blooockkk!!!");
       }
+      this.ssj_tranform();
     } else {
       if (this.ko_animation_played == false) {
         this.ko_animation_played = true;
@@ -185,12 +173,25 @@ class Player extends Phaser.GameObjects.Sprite {
         this.scene.combotext1.setText("KOOOOOO!!!!!");
         this.body.setVelocityX(0);
         this.body.setBounce(0);
+        this.aura.destroy(true, this);
       }
     }
   }
 
   checkIfAnimationIsPlaying(animation) {
     return this.anims.currentAnim.key == animation;
+  }
+
+  ssj_tranform() {
+    if (this.hp <= 10) {
+      if (this.keyobj_o.isDown && !this.is_ssj) {
+        this.aura.play("ssj", true);
+        this.hp = 50;
+        this.shield = 5;
+        this.scene.update_hp_shield_player1();
+        this.is_ssj = true;
+      }
+    }
   }
 
   blockAnimation(anim) {

@@ -13,8 +13,8 @@ class PreloadFightScene extends Phaser.Scene {
 
     // ssj images
     this.load.image("ssj0", "assets/ssj_aura/ssj_frame_0.png")
-    this.load.image("ssj0", "assets/ssj_aura/ssj_frame_1.png")
-    this.load.image("ssj0", "assets/ssj_aura/ssj_frame_2.png")
+    this.load.image("ssj1", "assets/ssj_aura/ssj_frame_1.png")
+    this.load.image("ssj2", "assets/ssj_aura/ssj_frane_2.png")
 
 
     this.preloadBlue();
@@ -1096,11 +1096,11 @@ class PreloadFightScene extends Phaser.Scene {
     this.anims.create({
       key: "ssj",
       frames: [
-        {key: "ssj0"},
-        {key: "ssj1"},
-        {key: "ssj2"}
+        {key: "ssj0", duration: 10},
+        {key: "ssj1", duration: 10},
+        {key: "ssj2", duration: 10}
       ],
-      frameRate: 15,
+      frameRate: 8,
       repeat: -1
       
     })

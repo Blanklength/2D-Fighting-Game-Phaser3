@@ -13,10 +13,10 @@ class Stage1 extends Phaser.Scene {
 
     this.group = this.physics.add.group();
     this.border1 = this.group
-      .create(100, height / 2, "ring_block")
+      .create(102, height / 2, "ring_block")
       .setSize(65, 200);
     this.border2 = this.group
-      .create(width / 1.045, height / 2, "ring_block")
+      .create(width / 1.045-3, height / 2, "ring_block")
       .setSize(65, 200);
 
     this.fightScene = this.game.scene.getScene("FightScene");
@@ -34,14 +34,14 @@ class Stage1 extends Phaser.Scene {
     this.fightScene.physics.add.collider(this.fightScene.player2, this.border1);
 
     var box_ground = this.add.rectangle(
-      width / 2,
+      width / 2+5,
       height,
-      width / 1.10125,
+      width / 1.070,
       height,
-      0x000000
+      0xff0000
     );
 
-    this.add.image(width / 2 + 35, height / 1.5, "ring_line").setScale(5.46);
+    this.add.image(width / 2 + 35, height / 1.5, "ring_line").setScale(5.5);
   }
 
   update() {}

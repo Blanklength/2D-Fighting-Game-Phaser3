@@ -2,11 +2,11 @@ var config = {
   parent: drawpanel,
   pixelArt: true,
   type: Phaser.AUTO,
-  backgroundColor: "#87CEFA",
+  backgroundColor: "#0ff4fc",
   physics: {
     default: "arcade",
     arcade: {
-      debug: true,
+      debug: false,
       gravity: { y: 0 },
     },
   },
@@ -16,7 +16,7 @@ var config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
 
-  scene: [TitleScreen, PreloadFightScene, FightScene, Stage1],
+  scene: [TitleScreen, PreloadFightScene, FightScene, Stage1, CreateLobbyScene, JoinLobbyScene],
 };
 
 var game = new Phaser.Game(config);
