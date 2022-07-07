@@ -1,3 +1,5 @@
+const { testFunktion } = require("../js/client");
+
 class TitleScreen extends Phaser.Scene {
   constructor() {
     super("TitleScreen");

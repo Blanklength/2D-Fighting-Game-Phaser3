@@ -1,3 +1,4 @@
+
 var config = {
   parent: drawpanel,
   pixelArt: true,
@@ -18,5 +19,5 @@ var config = {
 
   scene: [TitleScreen, PreloadFightScene, FightScene, Stage1, CreateLobbyScene, JoinLobbyScene],
 };
-
 var game = new Phaser.Game(config);
+
