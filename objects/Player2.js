@@ -30,7 +30,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
   init(enemies, data) {
     this.width = this.scene.sys.game.canvas.width;
     this.height = this.scene.sys.game.canvas.height;
-
+ 
     this.atack_started = false;
     this.ko_animation_played = false;
     this.is_blocking = false;

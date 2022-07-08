@@ -1,5 +1,3 @@
-const { testFunktion } = require("../js/client");
-
 class TitleScreen extends Phaser.Scene {
   constructor() {
     super("TitleScreen");
@@ -52,8 +50,6 @@ class TitleScreen extends Phaser.Scene {
     else if (this.cursor == 2) {
       this.my_marker.setPosition(this.join.x-5, this.join.y+60);
     }
-    console.log(this.cursor)
-
   }
 
   update() {

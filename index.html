@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <input type="text" style="position: absolute; visibility: hidden;" id="code_entry" placeholder="LOBBY CODE">
     <div id="drawpanel">
         <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
         <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
@@ -22,9 +21,11 @@
         <script src="scenes/fight_scene.js"></script>
         <script src="scenes/create_lobby_scene.js"></script>
         <script src="scenes/join_lobby_scene.js"></script>
-
+        <script src="/socket.io/socket.io.js"></script>
         <script src="js/game.js"></script>
     </div>
+    <input type="text" style="position: absolute; visibility: hidden;" id="code_entry" placeholder="LOBBY CODE">
+    <button id="sendCodeBtn" style="position: absolute; visibility: hidden; width: 200px; height: 50px;" onclick="connectToLobby()">Beitreten</button>
 
 </body>
 
