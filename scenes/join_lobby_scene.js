@@ -1,11 +1,29 @@
+var client = io()
+client.on('connection');
+
+function getInsertedCode(){
+  return document.getElementById("code_entry").value
+}
+
+function connectToLobby(){
+  lobby_code = getInsertedCode()
+  client.emit("joinLobby", lobby_code);
+}
+
+
 class JoinLobbyScene extends Phaser.Scene {
     constructor() {
       super("JoinLobbyScene");
     }
   
     preload() {}
+
+    getInsertedCode(){
+
+    }
   
     create() {
+
       // center code input
       var code_input = document.getElementById("code_entry")
       code_input.style.visibility = "visible";
@@ -17,6 +35,21 @@ class JoinLobbyScene extends Phaser.Scene {
       sendCodeBtn.style.top = "60%";
       sendCodeBtn.style.left = "45%";
       sendCodeBtn.style.visibility = "visible";
+
+      client.on("unsuccesfullEntry", () =>{
+        window.alert("No Lobby Found")
+
+      });
+
+      client.on("succesfullEntry", () =>{
+        let { width, height } = this.sys.game.canvas;
+        this.add.text(width/2 - 480, 10, "Host needs to start the Game...", {backgroundColor: "#0000000", color: '#FFFFFF', fontSize: 50})
+
+      });
+
+      
+
+
 
 
     }

@@ -4,6 +4,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var lobbyCode = undefined;
+var entryCode = undefined;
 
 // usages
 app.use('/objects',express.static(__dirname + '/objects'));
@@ -20,7 +21,21 @@ io.on("connection", (socket) => {
     socket.on("LobbyCode", (data)=>
     {
         lobbyCode = data;
+        socket.join(lobbyCode);
     });
+
+    socket.on("joinLobby", (arg)=>{
+        entryCode = arg;
+        if (entryCode == lobbyCode){
+            socket.join(entryCode);
+            io.to(lobbyCode).emit("succesfullEntry")
+        }
+        else{
+            socket.emit("unsuccesfullEntry")
+        }
+    });
+
+
 });
 
 server.listen(8081, function(){
