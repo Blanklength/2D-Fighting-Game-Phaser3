@@ -35,10 +35,8 @@ class CreateLobbyScene extends Phaser.Scene {
     var enterCode = this.add.text(width/2-250, height/2-200, "Lobby Code: " + this.code, {backgroundColor: "#0000000", color: '#FFFFFF', fontSize: 50})
     var refreshbutton = this.add.image(width/2+350, height/2-200, "refresh").setScale(0.08)
     refreshbutton.setInteractive()
-    var startGameButton = this.add.image(width/2+350, height/2-200, "refresh").setScale(0.08)
-    startGameButton.setInteractive();
-    this.add.text(width/2-250, height/2-350, "Click here to start Game", {backgroundColor: "#0000000", color: '#FFFFFF', fontSize: 50})
-
+    var startGameButton = this.add.text(width/2-250, height/2+200, "Click here to start Game", {backgroundColor: "#0000000", color: '#FFFFFF', fontSize: 50})
+    startGameButton.setInteractive()
     var playerstatus = this.add.text(width/2-250, height/2, "No Players", {backgroundColor: "#0000000", color: '#FFFFFF', fontSize: 50})
     
     this.client.on("succesfullEntry", () =>{
@@ -55,7 +53,7 @@ class CreateLobbyScene extends Phaser.Scene {
 
     startGameButton.on('pointerdown', () => {
       // start multiplayer scene
-      this.scene.start();
+      this.scene.start("FightSceneOnline");
     })
 
   }

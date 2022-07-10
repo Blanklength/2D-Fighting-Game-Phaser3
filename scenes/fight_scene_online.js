@@ -1,6 +1,6 @@
-class FightScene extends Phaser.Scene {
+class FightSceneOnline extends Phaser.Scene {
   constructor() {
-    super("FightScene");
+    super("FightSceneOnline");
   }
 
   preload() {}
