@@ -25,7 +25,6 @@ class CreateLobbyScene extends Phaser.Scene {
   createConnection(){
     this.client = io()
     this.client.on('connection');
-
   }
 
   create() {
@@ -53,7 +52,8 @@ class CreateLobbyScene extends Phaser.Scene {
 
     startGameButton.on('pointerdown', () => {
       // start multiplayer scene
-      this.scene.start("FightSceneOnline");
+      this.client.emit("startGame", this.code);
+      this.scene.start("PreloadFightSceneOnline");
     })
 
   }

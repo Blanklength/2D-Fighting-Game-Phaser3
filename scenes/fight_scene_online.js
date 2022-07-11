@@ -3,7 +3,12 @@ class FightSceneOnline extends Phaser.Scene {
     super("FightSceneOnline");
   }
 
-  preload() {}
+  init(data){
+    this.socket2 = data
+  }
+
+  preload() {
+  }
 
   update_hp_shield_player1() {
     let { width, height } = this.sys.game.canvas;
@@ -66,6 +71,7 @@ class FightSceneOnline extends Phaser.Scene {
   }
 
   create() {
+    window.thisScene = this;
     this.scene.launch("Stage1");
 
     let { width, height } = this.sys.game.canvas;
@@ -88,8 +94,8 @@ class FightSceneOnline extends Phaser.Scene {
     this.ground.refreshBody();
 
     // players
-    this.player1 = new Player(this, 800, 10, "blue");
-    this.player2 = new Player2(this, 400, 10, "red");
+    this.player1 = new PlayerOnline(this, 800, 10, "blue");
+    this.player2 = new Player2Online(this, 400, 10, "red");
 
     // hp bars
     this.hpBar1 = this.create_bar(

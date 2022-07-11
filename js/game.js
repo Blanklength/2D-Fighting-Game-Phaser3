@@ -17,7 +17,16 @@ var config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
 
-  scene: [TitleScreen, PreloadFightScene, FightScene, Stage1, FightSceneOnline, CreateLobbyScene, JoinLobbyScene],
+  scene: [
+    TitleScreen,
+    PreloadFightScene,
+    PreloadFightSceneOnline,
+    FightScene,
+    FightSceneOnline,
+    Stage1,
+    CreateLobbyScene,
+    JoinLobbyScene
+  ],
 };
 var game = new Phaser.Game(config);
 

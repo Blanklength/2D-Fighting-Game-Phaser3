@@ -12,7 +12,7 @@ app.use('/scenes',express.static(__dirname + '/scenes'));
 app.use('/js',express.static(__dirname + '/js'));
 app.use('/assets',express.static(__dirname + '/assets'));
 
-
+// get index html file
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 })
@@ -34,6 +34,15 @@ io.on("connection", (socket) => {
             socket.emit("unsuccesfullEntry")
         }
     });
+
+    socket.on("startGame", (lobby) => {
+        console.log(lobby);
+        io.to(lobby).emit("startGame");
+    })
+
+    socket.on("moveRight", (lobby, vel)=>{
+        io.to(lobby).emit("moveRight", vel)
+    })
 
 
 });
