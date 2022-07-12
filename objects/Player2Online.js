@@ -1,3 +1,11 @@
+
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+//delay(1000).then(() => console.log('ran after 1 second1 passed'));
+
+
 class Player2Online extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, color) {
     super(scene, x, y, color);
@@ -133,7 +141,6 @@ class Player2Online extends Phaser.GameObjects.Sprite {
           this.body.setVelocityX(0);
           if (!this.checkIfAnimationIsPlaying("hurtBlue"))
             this.anims.play("idleBlue", true);
-          //this.anims.play("ssj_transform", true)
           this.scene.combotext2.setText("");
         }
         if (this.is_in_knockback) {

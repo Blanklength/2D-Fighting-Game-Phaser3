@@ -1,8 +1,15 @@
+
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+//delay(1000).then(() => console.log('ran after 1 second1 passed'));
+
+
+
 class PlayerOnline extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, color) {
     super(scene, x, y, color);
-
-    this.socket;
 
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
@@ -25,6 +32,9 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
   }
 
   init() {
+    // which online player is playingt the game
+    this.player; 
+
     this.width = this.scene.sys.game.canvas.width;
     this.height = this.scene.sys.game.canvas.height;
 
@@ -43,7 +53,8 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
   }
 
   create() {
-    this.getSocket();
+    this.socket = this.getSocket();
+
 
     this.cursors = this.scene.input.keyboard.createCursorKeys();
 
@@ -87,11 +98,15 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
   }
 
   getSocket() {
-    this.socket = this.scene.game.scene.getScene("CreateLobbyScene").client;
-    if (this.socket === undefined) {
-      this.socket = this.socket2;
+    this.player = 1
+    var socket = this.scene.game.scene.getScene("CreateLobbyScene").client;
+    if (socket == undefined){
+      this.player = 2
+      socket = this.scene.socket2;
     }
+    return socket;
   }
+
 
   update() {
     // transformation Aura
@@ -107,9 +122,14 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("uppercut") &&
           !this.checkIfAnimationIsPlaying("block")
         ) {
-          this.body.setVelocityX(60);
-          if (!this.checkIfAnimationIsPlaying("hurt"))
-            this.anims.play("walkback", true);
+          if (!this.checkIfAnimationIsPlaying("walkback")){
+            this.socket.emit("move", "walkback", 60);
+          }
+          this.socket.on("walkback", (vel) => {
+            this.body.setVelocityX(vel);
+            if (!this.checkIfAnimationIsPlaying("hurt") && !this.checkIfAnimationIsPlaying("walkback"))
+              this.anims.play("walkback", true);
+          })
         }
       }
       // going left
@@ -120,9 +140,12 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("uppercut") &&
           !this.checkIfAnimationIsPlaying("block")
         ) {
-          this.body.setVelocityX(-60);
-          if (!this.checkIfAnimationIsPlaying("hurt"))
-            this.anims.play("walk", true);
+          this.socket.emit("move", "walk", -60);
+          this.socket.on("walk", (vel) => {
+            this.body.setVelocityX(vel);
+            if (!this.checkIfAnimationIsPlaying("hurt"))
+              this.anims.play("walk", true);
+          })
         }
       }
       //idle
@@ -132,10 +155,13 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("punchleft") &&
           !this.checkIfAnimationIsPlaying("uppercut")
         ) {
-          this.body.setVelocityX(0);
-          if (!this.checkIfAnimationIsPlaying("hurt"))
-            this.anims.play("idle", true);
-          this.scene.combotext1.setText("");
+          this.socket.emit("move", "idle", 0);
+          this.socket.on("idle", (vel) => {
+            this.body.setVelocityX(vel);
+            if (!this.checkIfAnimationIsPlaying("hurt"))
+              this.anims.play("idle", true);
+            this.scene.combotext1.setText("");
+          })
         }
       }
       if (this.is_in_knockback) {

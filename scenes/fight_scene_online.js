@@ -92,6 +92,7 @@ class FightSceneOnline extends Phaser.Scene {
     this.ground.scaleX = 10;
     this.ground.scaleY = 0.1;
     this.ground.refreshBody();
+    this.ground.setVisible(false);
 
     // players
     this.player1 = new PlayerOnline(this, 800, 10, "blue");

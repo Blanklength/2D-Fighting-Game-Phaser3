@@ -18,9 +18,9 @@ class JoinLobbyScene extends Phaser.Scene {
 
   preload() {}
 
-  getInsertedCode() {}
-
   create() {
+
+    this.lobby = getInsertedCode()
     // center code input
     var code_input = document.getElementById("code_entry");
     code_input.style.visibility = "visible";

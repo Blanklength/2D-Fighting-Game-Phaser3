@@ -6,8 +6,6 @@ class PreloadFightSceneOnline extends Phaser.Scene {
     this.socket2 = data;
   }
 
-  
-
   // Preloads everything
   preload() {
 
@@ -1110,7 +1108,6 @@ class PreloadFightSceneOnline extends Phaser.Scene {
       repeat: -1
       
     })
-
 
     this.scene.start("FightSceneOnline", this.socket2);
   }
