@@ -55,6 +55,8 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
   create() {
     this.socket = this.getSocket();
 
+    this.socket_events();
+
 
     this.cursors = this.scene.input.keyboard.createCursorKeys();
 
@@ -109,31 +111,26 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
 
 
   update() {
+
     // transformation Aura
     this.aura.setPosition(this.body.x + 100, this.body.y + 150).setDepth(-1);
 
     this.flipX = true;
     // going right
     if (this.hp > 0) {
-      if (this.cursors.right.isDown) {
+      if (this.cursors.right.isDown && this.player == 2) {
         if (
           !this.checkIfAnimationIsPlaying("punchright") &&
           !this.checkIfAnimationIsPlaying("punchleft") &&
           !this.checkIfAnimationIsPlaying("uppercut") &&
           !this.checkIfAnimationIsPlaying("block")
         ) {
-          if (!this.checkIfAnimationIsPlaying("walkback")){
-            this.socket.emit("move", "walkback", 60);
-          }
-          this.socket.on("walkback", (vel) => {
-            this.body.setVelocityX(vel);
-            if (!this.checkIfAnimationIsPlaying("hurt") && !this.checkIfAnimationIsPlaying("walkback"))
-              this.anims.play("walkback", true);
-          })
+          this.socket.emit("move", "walkback", 60);
+          this.socket.emit("walkbackanim");
         }
       }
       // going left
-      else if (this.cursors.left.isDown) {
+      else if (this.cursors.left.isDown && this.player == 2) {
         if (
           !this.checkIfAnimationIsPlaying("punchright") &&
           !this.checkIfAnimationIsPlaying("punchleft") &&
@@ -141,11 +138,6 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("block")
         ) {
           this.socket.emit("move", "walk", -60);
-          this.socket.on("walk", (vel) => {
-            this.body.setVelocityX(vel);
-            if (!this.checkIfAnimationIsPlaying("hurt"))
-              this.anims.play("walk", true);
-          })
         }
       }
       //idle
@@ -158,10 +150,10 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
           this.socket.emit("move", "idle", 0);
           this.socket.on("idle", (vel) => {
             this.body.setVelocityX(vel);
-            if (!this.checkIfAnimationIsPlaying("hurt"))
-              this.anims.play("idle", true);
-            this.scene.combotext1.setText("");
           })
+          if (!this.checkIfAnimationIsPlaying("hurt"))
+          this.anims.play("idle", true);
+        this.scene.combotext1.setText("");
         }
       }
       if (this.is_in_knockback) {
@@ -280,6 +272,22 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
 
   reset_hurt() {
     this.is_hp_losing = false;
+  }
+
+  socket_events(){
+
+    this.socket.on("walk", (vel) => {
+      this.body.setVelocityX(vel);
+      if (!this.checkIfAnimationIsPlaying("hurt"))
+        this.anims.play("walk", true);
+    })
+
+    this.socket.on("walkback", (vel) => {
+      this.body.setVelocityX(vel);
+      if (!this.checkIfAnimationIsPlaying("hurt"))              
+        this.anims.play("walkback", true);
+    })
+
   }
 
   hp_lose() {

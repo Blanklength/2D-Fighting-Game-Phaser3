@@ -66,16 +66,28 @@ class FightScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.launch("Stage1");
 
-    let { width, height } = this.sys.game.canvas;
-
-    // creating configs for text
+      // creating configs for text
     var textConfig = {
       fontSize: "60px",
       color: "#000000",
       fontFamily: "Arial",
     };
+
+    let { width, height } = this.sys.game.canvas;
+    
+    this.scene.launch("Stage1");
+    this.again = this.add.text(width/2-100, height/2 - 150, "Play Again", textConfig);
+    this.back = this.add.text(width/2-100, height/2-250, "Back to Title Screen", textConfig);
+    this.exit = this.add.text(width/2-100, height/2 - 350,"Exit Game", textConfig);
+    
+    this.again.setInteractive();
+    this.back.setInteractive();
+    this.exit.setInteractive();
+
+    this.again.setVisible(false);
+    this.back.setVisible(false);
+    this.exit.setVisible(false);
 
     //creating combo text
     this.combotext2 = this.add.text(0, 80, "", textConfig);
@@ -87,7 +99,6 @@ class FightScene extends Phaser.Scene {
     this.ground.scaleY = 0.1;
     this.ground.refreshBody();
     this.ground.setVisible(false);
-
 
     // players
     this.player1 = new Player(this, 800, 10, "blue");
@@ -159,11 +170,32 @@ class FightScene extends Phaser.Scene {
   }
 
   update() {
+    let { width, height } = this.sys.game.canvas;
+
+
+    var textConfig = {
+      fontSize: "60px",
+      color: "#000000",
+      fontFamily: "Arial",
+    };
+    
     // destroy collider if someone is ko
     this.destroy_collider_players();
 
     // updating players
     this.player2.update();
     this.player1.update();
+
+    if (this.player2.hp == 0 || this.player1.hp == 0) {
+      this.again.setVisible(true);
+     // this.exit.setVisible(true);
+     // this.back.setVisible(true);
+    }
+
+    this.again.on("pointerdown", () => {
+      this.scene.restart()
+    });
+
+   
   }
 }

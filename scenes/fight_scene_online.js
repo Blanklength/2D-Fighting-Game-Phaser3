@@ -163,6 +163,10 @@ class FightSceneOnline extends Phaser.Scene {
     }
   }
 
+  restartGame(){
+    this.scene.restart()
+  }
+
   update() {
     // destroy collider if someone is ko
     this.destroy_collider_players();
@@ -170,5 +174,8 @@ class FightSceneOnline extends Phaser.Scene {
     // updating players
     this.player2.update();
     this.player1.update();
+
+
+
   }
 }
