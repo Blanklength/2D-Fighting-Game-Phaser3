@@ -201,7 +201,6 @@ class Player extends Phaser.GameObjects.Sprite {
 
   attackanimation(attackType) {
     this.body.setVelocityX(0);
-
     this.hitbox = this.scene.add
       .sprite(this.x, this.y - this.body.height / 2)
       .setDepth(-1)

@@ -1,26 +1,27 @@
-
-function delay(time) {
-  return new Promise(resolve => setTimeout(resolve, time));
-}
-
-//delay(1000).then(() => console.log('ran after 1 second1 passed'));
-
-
-
 class PlayerOnline extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, color) {
     super(scene, x, y, color);
 
+    // which player is playing variable
+    this.player;
+
+    // getting connection
+    this.socket = this.getSocket();
+
+    // Physics
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    this.setPosition(x, y);
+
+    // Transformation Aura
     this.aura = this.scene.add.sprite(this.body.x, this.body.y, "hp_block");
 
+    // Gamesprite Settings
     this.setTexture("idle0");
     this.play("idle");
+    this.setPosition(x, y);
 
-    this.body // player Config
-      .setBounce(0.5);
+    // Body Config
+    this.body.setBounce(0.5);
     this.body.setSize(200, 300, true);
     this.body.setGravityY(100);
     this.body.setCollideWorldBounds(true);
@@ -32,9 +33,7 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
   }
 
   init() {
-    // which online player is playingt the game
-    this.player; 
-
+    // Screen Width, Height
     this.width = this.scene.sys.game.canvas.width;
     this.height = this.scene.sys.game.canvas.height;
 
@@ -46,6 +45,7 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
     this.current_knockback_speed = 0;
     this.is_hp_losing = false;
 
+    // Player Attributes
     this.hp = 50;
     this.shield = 5;
     this.colliderPunch;
@@ -53,27 +53,25 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
   }
 
   create() {
-    this.socket = this.getSocket();
-
-    this.socket_events();
-
-
+    // cursor
     this.cursors = this.scene.input.keyboard.createCursorKeys();
 
     // Look in this function, after one animation is completed
     this.on("animationcomplete", (event) => {
       try {
         if (
+          // amimations on which idle starts
           event.key == "punchright" ||
           event.key == "punchleft" ||
           event.key == "uppercut" ||
           event.key == "hurt"
         ) {
+          // idling and destroying collider punch
           this.anims.play("idle", true);
           this.colliderPunch.destroy(true);
         }
       } catch (e) {}
-
+      // Block reset to false after atack
       this.is_blocking = false;
     });
 
@@ -97,28 +95,24 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
     this.keyobj_o = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.O
     );
-  }
 
-  getSocket() {
-    this.player = 1
-    var socket = this.scene.game.scene.getScene("CreateLobbyScene").client;
-    if (socket == undefined){
-      this.player = 2
-      socket = this.scene.socket2;
-    }
-    return socket;
+    // calling emit Handler
+    // not in update method for better Performance
+    // hust its already bad hust
+    this.emitHandler();
   }
-
 
   update() {
-
-    // transformation Aura
+    // moving aura in background of Player
     this.aura.setPosition(this.body.x + 100, this.body.y + 150).setDepth(-1);
 
+    // flip Player
     this.flipX = true;
-    // going right
+
+    // updating if Player isnt Ko
     if (this.hp > 0) {
-      if (this.cursors.right.isDown && this.player == 2) {
+      // going right
+      if (this.cursors.right.isDown && this.player == 1) {
         if (
           !this.checkIfAnimationIsPlaying("punchright") &&
           !this.checkIfAnimationIsPlaying("punchleft") &&
@@ -126,34 +120,28 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("block")
         ) {
           this.socket.emit("move", "walkback", 60);
-          this.socket.emit("walkbackanim");
         }
       }
+
       // going left
-      else if (this.cursors.left.isDown && this.player == 2) {
+      else if (this.cursors.left.isDown && this.player == 1) {
         if (
           !this.checkIfAnimationIsPlaying("punchright") &&
           !this.checkIfAnimationIsPlaying("punchleft") &&
           !this.checkIfAnimationIsPlaying("uppercut") &&
           !this.checkIfAnimationIsPlaying("block")
         ) {
-          this.socket.emit("move", "walk", -60);
+          this.socket.emit("move", "walk", -60)
         }
       }
-      //idle
+      // no cursor moves to right or left detecrted
       else {
         if (
           !this.checkIfAnimationIsPlaying("punchright") &&
           !this.checkIfAnimationIsPlaying("punchleft") &&
           !this.checkIfAnimationIsPlaying("uppercut")
         ) {
-          this.socket.emit("move", "idle", 0);
-          this.socket.on("idle", (vel) => {
-            this.body.setVelocityX(vel);
-          })
-          if (!this.checkIfAnimationIsPlaying("hurt"))
-          this.anims.play("idle", true);
-        this.scene.combotext1.setText("");
+          this.socket.emit("move", "idle", 0)
         }
       }
       if (this.is_in_knockback) {
@@ -175,26 +163,19 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
       );
       this.is_hp_losing = false;
 
-      if (Phaser.Input.Keyboard.JustDown(this.keyobj_j)) {
-        this.atack_started = true;
-        this.scene.combotext1.setText("1 x Punch Right!!!");
-        this.attackanimation("punchright");
-      } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_k)) {
-        this.atack_started = true;
-        this.scene.combotext1.setText("1 x Punch Left!!!");
-        this.attackanimation("punchleft");
+      if (Phaser.Input.Keyboard.JustDown(this.keyobj_j) && this.player ==1) {
+        this.socket.emit("atackmove", "punchright")
+
+      } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_k) && this.player ==1) {
+        this.socket.emit("atackmove", "punchleft");
       }
-      if (Phaser.Input.Keyboard.JustDown(this.keyobj_l)) {
-        if (!this.checkIfAnimationIsPlaying("punchright"))
-          this.atack_started = true;
-        this.scene.combotext1.setText("1 x Uppercut!!!");
-        this.attackanimation("uppercut");
+      if (Phaser.Input.Keyboard.JustDown(this.keyobj_l) && this.player ==1) {
+        this.socket.emit("atackmove", "uppercut");
       }
       this.is_blocking = false;
-      if (this.keyobj_h.isDown && this.shield != 0) {
-        this.is_blocking = true;
-        this.blockAnimation("block");
-        this.scene.combotext1.setText("Blooockkk!!!");
+      if (this.keyobj_h.isDown && this.shield != 0 && this.player ==1) {
+        this.socket.emit("atackmove", "block");
+
       }
       this.ssj_tranform();
     } else {
@@ -215,7 +196,7 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
 
   ssj_tranform() {
     if (this.hp <= 10) {
-      if (this.keyobj_o.isDown && !this.is_ssj) {
+      if (this.keyobj_o.isDown && !this.is_ssj && this.player ==1) {
         this.aura.play("ssj", true);
         this.hp = 50;
         this.shield = 5;
@@ -232,7 +213,6 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
 
   attackanimation(attackType) {
     this.body.setVelocityX(0);
-
     this.hitbox = this.scene.add
       .sprite(this.x, this.y - this.body.height / 2)
       .setDepth(-1)
@@ -274,22 +254,6 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
     this.is_hp_losing = false;
   }
 
-  socket_events(){
-
-    this.socket.on("walk", (vel) => {
-      this.body.setVelocityX(vel);
-      if (!this.checkIfAnimationIsPlaying("hurt"))
-        this.anims.play("walk", true);
-    })
-
-    this.socket.on("walkback", (vel) => {
-      this.body.setVelocityX(vel);
-      if (!this.checkIfAnimationIsPlaying("hurt"))              
-        this.anims.play("walkback", true);
-    })
-
-  }
-
   hp_lose() {
     this.hp -= 1;
     this.is_hp_losing = true;
@@ -300,5 +264,76 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
     if (this.shield > 0) {
       this.shield -= 1;
     }
+  }
+
+  // getting the right socket
+  getSocket() {
+    // defining the players
+    this.player = 2;
+
+    // use the sockket of create Lobby Scene
+    var socket = this.scene.game.scene.getScene("CreateLobbyScene").client;
+
+    // if this socket is undefined use the socket from Join Lobby Scene
+    if (socket == undefined) {
+      this.player=1;
+      socket = this.scene.socket2;
+    }
+
+    // returning the socket
+    return socket;
+  }
+
+  // handling emits
+  emitHandler() {
+    // walkblue
+    this.socket.on("walk", (vel) => {
+      this.body.setVelocityX(vel);
+      if (!this.checkIfAnimationIsPlaying("hurt"))
+        this.anims.play("walk", true);
+    });
+
+    // walkbackBlue
+    this.socket.on("walkback", (vel) => {
+      this.body.setVelocityX(vel);
+      if (!this.checkIfAnimationIsPlaying("hurt"))
+        this.anims.play("walkback", true);
+    });
+
+    // idle
+    this.socket.on("idle", (vel) => {
+      this.body.setVelocityX(vel);
+      if (!this.checkIfAnimationIsPlaying("hurt"))
+        this.anims.play("idle", true);
+      this.scene.combotext1.setText("");
+    });
+
+    // punchright
+    this.socket.on("punchright", () => {
+      this.attackanimation("punchright");
+      this.scene.combotext1.setText("1 x Punch Right!!!");
+      this.atack_started = true;
+    });
+
+    // punchleft
+    this.socket.on("punchleft", () => {
+      this.attackanimation("punchleft");
+      this.scene.combotext1.setText("1 x Punch Left!!!");
+      this.atack_started = true;
+    });
+
+    // uppecut
+    this.socket.on("uppercut", () => {
+      if (!this.checkIfAnimationIsPlaying("punchright"))
+        this.attackanimation("uppercut");
+      this.scene.combotext1.setText("1 x Uppercut!!!");
+      this.atack_started = true;
+    });
+
+    this.socket.on("block", () => {
+      this.blockAnimation("block");
+      this.is_blocking = true;
+      this.scene.combotext1.setText("BLOOCCCKK!!!");
+    });
   }
 }

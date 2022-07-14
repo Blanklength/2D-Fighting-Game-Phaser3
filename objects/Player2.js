@@ -157,6 +157,7 @@ class Player2 extends Phaser.GameObjects.Sprite {
         );
         this.is_hp_losing = false;
       }
+
       // punchright
       if (Phaser.Input.Keyboard.JustDown(this.keyobj_c)) {
         this.attackanimation("punchrightBlue");

@@ -66,8 +66,9 @@ io.on("connection", (socket) => {
   });
 
   // atackmove
-  socket.on("atackmove", (lobby, move, hp, block) => {
-    var impement = "Implement this stuff";
+  socket.on("atackmove", (move) => {
+    var lobby = players_lobbys.get(socket.id);
+    io.to(lobby).emit(move);
   });
 });
 
