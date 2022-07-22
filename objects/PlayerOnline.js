@@ -131,7 +131,7 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("uppercut") &&
           !this.checkIfAnimationIsPlaying("block")
         ) {
-          this.socket.emit("move", "walk", -60)
+          this.socket.emit("move", "walk", -60);
         }
       }
       // no cursor moves to right or left detecrted
@@ -141,7 +141,7 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("punchleft") &&
           !this.checkIfAnimationIsPlaying("uppercut")
         ) {
-          this.socket.emit("move", "idle", 0)
+          this.socket.emit("move", "idle", 0);
         }
       }
       if (this.is_in_knockback) {
@@ -163,19 +163,20 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
       );
       this.is_hp_losing = false;
 
-      if (Phaser.Input.Keyboard.JustDown(this.keyobj_j) && this.player ==1) {
-        this.socket.emit("atackmove", "punchright")
-
-      } else if (Phaser.Input.Keyboard.JustDown(this.keyobj_k) && this.player ==1) {
+      if (Phaser.Input.Keyboard.JustDown(this.keyobj_j) && this.player == 1) {
+        this.socket.emit("atackmove", "punchright");
+      } else if (
+        Phaser.Input.Keyboard.JustDown(this.keyobj_k) &&
+        this.player == 1
+      ) {
         this.socket.emit("atackmove", "punchleft");
       }
-      if (Phaser.Input.Keyboard.JustDown(this.keyobj_l) && this.player ==1) {
+      if (Phaser.Input.Keyboard.JustDown(this.keyobj_l) && this.player == 1) {
         this.socket.emit("atackmove", "uppercut");
       }
       this.is_blocking = false;
-      if (this.keyobj_h.isDown && this.shield != 0 && this.player ==1) {
+      if (this.keyobj_h.isDown && this.shield != 0 && this.player == 1) {
         this.socket.emit("atackmove", "block");
-
       }
       this.ssj_tranform();
     } else {
@@ -196,7 +197,7 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
 
   ssj_tranform() {
     if (this.hp <= 10) {
-      if (this.keyobj_o.isDown && !this.is_ssj && this.player ==1) {
+      if (this.keyobj_o.isDown && !this.is_ssj && this.player == 1) {
         this.aura.play("ssj", true);
         this.hp = 50;
         this.shield = 5;
@@ -255,9 +256,11 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
   }
 
   hp_lose() {
-    this.hp -= 1;
-    this.is_hp_losing = true;
-    //this.anims.play("hurt", true)
+    this.socket.emit("hp_lose", 1);
+    this.socket.on("hp_lose", (hp) => {
+      this.hp -= hp;
+      this.is_hp_losing = true;
+    });
   }
 
   shield_lose() {
@@ -276,7 +279,7 @@ class PlayerOnline extends Phaser.GameObjects.Sprite {
 
     // if this socket is undefined use the socket from Join Lobby Scene
     if (socket == undefined) {
-      this.player=1;
+      this.player = 1;
       socket = this.scene.socket2;
     }
 

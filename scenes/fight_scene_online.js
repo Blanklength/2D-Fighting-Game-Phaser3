@@ -128,6 +128,7 @@ class FightSceneOnline extends Phaser.Scene {
 
     // collider
 
+
     this.physics.add.collider(this.player1, this.ground);
     this.physics.add.collider(this.player2, this.ground);
     this.collider_players = this.physics.add.collider(

@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
+const os = require("os");
 
 var lobbyCode = undefined;
 var entryCode = undefined;
@@ -60,10 +61,20 @@ io.on("connection", (socket) => {
     io.to(lobby).emit(move, vel);
   });
 
+  socket.on("walk", (vel) => {
+    var lobby = players_lobbys.get(socket.id);
+    io.to(lobby).emit("walkBlue", vel);
+  });
+
   socket.on("anim", (anim) => {
     var lobby = players_lobbys.get(socket.id);
     io.to(lobby).emit(anim);
   });
+
+  socket.on("hp_lose", (hp)=>{
+    var lobby = players_lobbys.get(socket.id);
+    io.to(lobby).emit("hp_lose", hp);
+  })
 
   // atackmove
   socket.on("atackmove", (move) => {

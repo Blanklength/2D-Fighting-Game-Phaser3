@@ -44,6 +44,7 @@ class Player2Online extends Phaser.GameObjects.Sprite {
     this.is_in_knockback = false;
     this.current_knockback_speed = 0;
     this.is_hp_losing = false;
+    this.moveWalkSend = false;
 
     // Player attributes
     this.hp = 50;
@@ -117,15 +118,15 @@ class Player2Online extends Phaser.GameObjects.Sprite {
     // updating if player isnt ko
     if (this.hp > 0) {
       // going right
-      if (this.keyobj_d.isDown && this.player == 2) {
+      if (this.keyobj_d.isDown && this.player == 2 && !this.moveWalkSend) {
         if (
           !this.checkIfAnimationIsPlaying("punchrightBlue") &&
           !this.checkIfAnimationIsPlaying("punchleftBlue") &&
           !this.checkIfAnimationIsPlaying("uppercutBlue") &&
           !this.checkIfAnimationIsPlaying("blockBlue")
         ) {
-            this.socket.emit("move", "walkBlue", 60);
-          }
+          this.socket.emit("walk", 60);
+        }
       }
 
       // going left
@@ -136,7 +137,7 @@ class Player2Online extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("uppercutBlue") &&
           !this.checkIfAnimationIsPlaying("blockBlue")
         ) {
-            this.socket.emit("move", "walkbackBlue", -60)
+          this.socket.emit("move", "walkbackBlue", -60);
         }
       }
 
@@ -147,9 +148,9 @@ class Player2Online extends Phaser.GameObjects.Sprite {
           !this.checkIfAnimationIsPlaying("punchleftBlue") &&
           !this.checkIfAnimationIsPlaying("uppercutBlue")
         ) {
-            // idling
-            this.socket.emit("move", "idleBlue", 0)
-          }
+          // idling
+          this.socket.emit("move", "idleBlue", 0);
+        }
 
         // knockbacking player
         if (this.is_in_knockback) {
@@ -178,11 +179,14 @@ class Player2Online extends Phaser.GameObjects.Sprite {
 
       // punchright
       if (Phaser.Input.Keyboard.JustDown(this.keyobj_c) && this.player == 2) {
-        this.socket.emit("atackmove", "punchrightBlue")
+        this.socket.emit("atackmove", "punchrightBlue");
       }
 
       // punchleft
-      else if (Phaser.Input.Keyboard.JustDown(this.keyobj_v) && this.player == 2) {
+      else if (
+        Phaser.Input.Keyboard.JustDown(this.keyobj_v) &&
+        this.player == 2
+      ) {
         this.socket.emit("atackmove", "punchleftBlue");
       }
 
@@ -284,10 +288,12 @@ class Player2Online extends Phaser.GameObjects.Sprite {
 
   // lose hp
   hp_lose() {
-    this.hp -= 1;
-    this.is_hp_losing = true;
+    this.socket.emit("hp_lose", 1);
+    this.socket.on("hp_lose", (hp) => {
+      this.hp -= hp;
+      this.is_hp_losing = true;
+    });
   }
-
   // losing shield
   shield_lose() {
     if (this.shield > 0) {
@@ -295,7 +301,7 @@ class Player2Online extends Phaser.GameObjects.Sprite {
     }
   }
 
-  // getting the right socket 
+  // getting the right socket
   getSocket() {
     // defining the players
     this.player = 2;
@@ -320,50 +326,49 @@ class Player2Online extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(vel);
       if (!this.checkIfAnimationIsPlaying("hurtBlue"))
         this.anims.play("walkBlue", true);
-    })
+    });
 
     // walkbackBlue
     this.socket.on("walkbackBlue", (vel) => {
       this.body.setVelocityX(vel);
       if (!this.checkIfAnimationIsPlaying("hurtBlue"))
         this.anims.play("walkbackBlue", true);
-    })
+    });
 
     // idle
     this.socket.on("idleBlue", (vel) => {
       this.body.setVelocityX(vel);
       if (!this.checkIfAnimationIsPlaying("hurtBlue"))
         this.anims.play("idleBlue", true);
-        this.scene.combotext2.setText("");
-    })
+      this.scene.combotext2.setText("");
+    });
 
     // punchrightBlue
-    this.socket.on("punchrightBlue", ()=> {
+    this.socket.on("punchrightBlue", () => {
       this.attackanimation("punchrightBlue");
       this.scene.combotext2.setText("1 x Punch Right!!!");
       this.atack_started = true;
-    })
+    });
 
     // punchleftBlue
-    this.socket.on("punchleftBlue", ()=> {
-        this.attackanimation("punchleftBlue");
-        this.scene.combotext2.setText("1 x Punch Left!!!");
-        this.atack_started = true;
-    })
+    this.socket.on("punchleftBlue", () => {
+      this.attackanimation("punchleftBlue");
+      this.scene.combotext2.setText("1 x Punch Left!!!");
+      this.atack_started = true;
+    });
 
     // uppecutBlue
-    this.socket.on("uppercutBlue", ()=> {
+    this.socket.on("uppercutBlue", () => {
       if (!this.checkIfAnimationIsPlaying("punchrightBlue"))
         this.attackanimation("uppercutBlue");
       this.scene.combotext2.setText("1 x Uppercut!!!");
       this.atack_started = true;
-    })
+    });
 
-    this.socket.on("blockBlue", ()=> {
-        this.blockAnimation("blockBlue");
-        this.is_blocking = true;
-        this.scene.combotext2.setText("BLOOCCCKK!!!");
-    })
-
+    this.socket.on("blockBlue", () => {
+      this.blockAnimation("blockBlue");
+      this.is_blocking = true;
+      this.scene.combotext2.setText("BLOOCCCKK!!!");
+    });
   }
 }
